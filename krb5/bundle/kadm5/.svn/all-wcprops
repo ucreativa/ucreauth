@@ -1,0 +1,17 @@
+K 25
+svn:wc:ra_dav:version-url
+V 56
+/repository/!svn/ver/310397/pecl/krb5/trunk/bundle/kadm5
+END
+kadm_err.h
+K 25
+svn:wc:ra_dav:version-url
+V 67
+/repository/!svn/ver/310397/pecl/krb5/trunk/bundle/kadm5/kadm_err.h
+END
+admin.h
+K 25
+svn:wc:ra_dav:version-url
+V 64
+/repository/!svn/ver/310397/pecl/krb5/trunk/bundle/kadm5/admin.h
+END

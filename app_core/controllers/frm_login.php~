@@ -1,0 +1,41 @@
+﻿<?php 
+
+	 require_once($_SERVER["DOCUMENT_ROOT"] . "/ucreauth/global.php");
+    require_once( __CLS_PATH . "cls_kerberos.php");
+    require_once( __CLS_PATH . "cls_database.php");
+    
+    class frm_Login {
+    	
+		 var $auth_krb5;
+		 var $auth_pg;
+		 var $my_ticket;
+		 var $conn_status;
+		 var $username;
+		 
+		 function __construct(){
+		   $this->auth_krb5=new cls_Kerberos();
+         $this->auth_pg=new cls_Database();	
+		 }
+		 
+		 function get_login_ticket() {
+		 	return $this->my_ticket;
+		 }
+		 
+		 function get_username(){
+		 	return $this->username;
+		 }
+		 
+		 public function login($user, $pssw){
+ 
+		 	if($this->auth_krb5->krb5_connect($user, $pssw) && $this->auth_pg->is_connect()){
+		 		$this->my_ticket=$this->auth_krb5->get_ticket();
+		 		$this->conn_status=false;
+		 		$this->username=$user;	
+		   }else{
+		   	$this->my_ticket=null;
+		   	$this->conn_status=false;
+		   }
+		 }   
+    }
+
+?>

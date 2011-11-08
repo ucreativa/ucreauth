@@ -1,0 +1,41 @@
+K 25
+svn:wc:ra_dav:version-url
+V 49
+/repository/!svn/ver/310397/pecl/krb5/trunk/tests
+END
+001.phpt
+K 25
+svn:wc:ra_dav:version-url
+V 58
+/repository/!svn/ver/310397/pecl/krb5/trunk/tests/001.phpt
+END
+002.phpt
+K 25
+svn:wc:ra_dav:version-url
+V 58
+/repository/!svn/ver/310397/pecl/krb5/trunk/tests/002.phpt
+END
+003.phpt
+K 25
+svn:wc:ra_dav:version-url
+V 58
+/repository/!svn/ver/310397/pecl/krb5/trunk/tests/003.phpt
+END
+004.phpt
+K 25
+svn:wc:ra_dav:version-url
+V 58
+/repository/!svn/ver/310397/pecl/krb5/trunk/tests/004.phpt
+END
+config.php.dist
+K 25
+svn:wc:ra_dav:version-url
+V 65
+/repository/!svn/ver/310397/pecl/krb5/trunk/tests/config.php.dist
+END
+005.phpt
+K 25
+svn:wc:ra_dav:version-url
+V 58
+/repository/!svn/ver/310397/pecl/krb5/trunk/tests/005.phpt
+END

@@ -1,0 +1,21 @@
+﻿<?php
+   /* Módulo de conexión para POSTGRESQL DATABASE */   
+
+   class cls_Conn {   
+   
+	   $host="localhost";
+	   $dbname="bd_ucreauth";
+	   $port="5432";
+	   $user="postgres";
+	   $password="123";
+	   
+	   $str_conn="host=".$host." dbname=".$dbname." port=".$port." user=".$user." password=".$password
+	
+	   public function db_connect() {
+		 	$connection = pg_connect($str_conn);
+		 	$conn_status="";
+			if (!$connection) { $conn_status=false; exit;} else { $conn_status=true; }
+			return $conn_status;
+ 	  }
+ 	 
+?>

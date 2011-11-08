@@ -1,0 +1,89 @@
+K 25
+svn:wc:ra_dav:version-url
+V 43
+/repository/!svn/ver/310397/pecl/krb5/trunk
+END
+php_krb5.h
+K 25
+svn:wc:ra_dav:version-url
+V 54
+/repository/!svn/ver/310397/pecl/krb5/trunk/php_krb5.h
+END
+negotiate_auth.c
+K 25
+svn:wc:ra_dav:version-url
+V 60
+/repository/!svn/ver/310397/pecl/krb5/trunk/negotiate_auth.c
+END
+kadm5_policy.c
+K 25
+svn:wc:ra_dav:version-url
+V 58
+/repository/!svn/ver/310397/pecl/krb5/trunk/kadm5_policy.c
+END
+kadm5_principal.c
+K 25
+svn:wc:ra_dav:version-url
+V 61
+/repository/!svn/ver/310397/pecl/krb5/trunk/kadm5_principal.c
+END
+config.m4
+K 25
+svn:wc:ra_dav:version-url
+V 53
+/repository/!svn/ver/310397/pecl/krb5/trunk/config.m4
+END
+krb5.c
+K 25
+svn:wc:ra_dav:version-url
+V 50
+/repository/!svn/ver/310397/pecl/krb5/trunk/krb5.c
+END
+manual.pdf
+K 25
+svn:wc:ra_dav:version-url
+V 54
+/repository/!svn/ver/310397/pecl/krb5/trunk/manual.pdf
+END
+php_krb5_gssapi.h
+K 25
+svn:wc:ra_dav:version-url
+V 61
+/repository/!svn/ver/310397/pecl/krb5/trunk/php_krb5_gssapi.h
+END
+CHANGELOG
+K 25
+svn:wc:ra_dav:version-url
+V 53
+/repository/!svn/ver/310397/pecl/krb5/trunk/CHANGELOG
+END
+gssapi.c
+K 25
+svn:wc:ra_dav:version-url
+V 52
+/repository/!svn/ver/310397/pecl/krb5/trunk/gssapi.c
+END
+php_krb5_kadm.h
+K 25
+svn:wc:ra_dav:version-url
+V 59
+/repository/!svn/ver/310397/pecl/krb5/trunk/php_krb5_kadm.h
+END
+CREDITS
+K 25
+svn:wc:ra_dav:version-url
+V 51
+/repository/!svn/ver/310397/pecl/krb5/trunk/CREDITS
+END
+README
+K 25
+svn:wc:ra_dav:version-url
+V 50
+/repository/!svn/ver/310397/pecl/krb5/trunk/README
+END
+kadm.c
+K 25
+svn:wc:ra_dav:version-url
+V 50
+/repository/!svn/ver/310397/pecl/krb5/trunk/kadm.c
+END

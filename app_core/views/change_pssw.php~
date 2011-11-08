@@ -1,0 +1,68 @@
+﻿<?php
+    require_once($_SERVER["DOCUMENT_ROOT"] . "/ucreauth/global.php");
+    require_once(__CLS_PATH . "cls_html.php");
+?>
+
+<html>
+ <head>
+	   <?php
+	       echo cls_HTML::html_js_header(__JS_PATH . "jquery-1.6.2.min.js");
+	       echo cls_HTML::html_js_header(__JS_PATH . "jquery-ui-1.8.6.custom.min.js");
+	       echo cls_HTML::html_js_header(__JS_PATH . "functions.js");
+          echo cls_HTML::html_css_header(__CSS_PATH . "style.css","screen");
+	   ?>
+	 <title></title>
+ </head>
+
+  <body>
+
+<?php
+    require(__CTR_PATH . "ctr_user.php");
+
+	 //Declaramos el controlador de la vista actual el cual contiene las acciones a ejecutar
+    $user_adm=new cls_User();
+?>
+        <script>   
+            $(document).ready(function() {
+
+            });  
+        </script>
+
+	<div class="general_form_page">
+		<div id="userpage">
+		    <?php echo cls_HTML::html_form_tag("frm_chpssw", "","","post"); ?>
+		    <fieldset class="groupbox"> <legend>CAMBIO DE CONTRASEÑA</legend>
+			    <div class="block_form">
+				    <?php echo cls_HTML::html_label_tag("Nuevo Password:"); ?>
+				    <br />
+				    <?php echo cls_HTML::html_input_password("txt_pssw","txt_pssw","text",16,"","Contraseña",2,"","","required"); ?>
+				    <br /><br />
+				    <?php echo cls_HTML::html_label_tag("Confirme el Password:"); ?>
+				    <br />
+				    <?php echo cls_HTML::html_input_password("txt_pssw","txt_cpssw","text",16,"","Confirmar contraseña",3,"","",""); ?>
+				    <br /><br />
+				 </div>
+			 </fieldset>
+	 		 <div id="action_buttons_form">
+			    <?php echo cls_HTML::html_input_button("submit","btn_save","btn_save","button","Guardar",4,"","onclick=\"return validate_pssw();\""); ?>
+			    <br /><br />
+		    </div>
+		    <?php echo cls_HTML::html_form_end(); ?>
+		</div>
+
+      <?php
+	      //Eventos click de los botones de acción
+
+		   if(isset($_POST['btn_save'])){
+		   	if($user_adm->update_chpssw($_GET['usr'],$_POST['txt_pssw'])==true){
+		   		$message=cls_Message::show_message("Contraseña Actualizada!","success","");
+		   		//alert('Su contraseña ha sido actualizada correctamente, los datos de autenticación han sido enviados al correo asociado a su cuenta');
+		   		echo "<script>parent.location.href='http://www.ucreativa.com';</script>"; 
+		   	}
+		   }
+		   
+     ?>
+
+	</div>
+  </body>
+ </html>

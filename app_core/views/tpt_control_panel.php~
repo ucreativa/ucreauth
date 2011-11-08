@@ -1,0 +1,71 @@
+<?php
+    include_once($_SERVER["DOCUMENT_ROOT"] . "/ucreauth/security.php");
+    require_once($_SERVER["DOCUMENT_ROOT"] . "/ucreauth/global.php");
+    require_once(__CLS_PATH . "cls_html.php");
+    require_once(__CLS_PATH . "cls_kerberos.php");
+    require_once(__CLS_PATH . "cls_user.php");
+    require_once(__FRM_PATH . "frm_service.php");
+?>
+
+<html>
+
+  <head>
+      <?php
+          echo cls_HTML::html_js_header("//ajax.googleapis.com/ajax/libs/jquery/1.6.1/jquery.min.js");
+          echo cls_HTML::html_js_header(__JS_PATH . "jquery-ui-1.8.6.custom.min.js");
+          echo cls_HTML::html_js_header(__JS_PATH . "functions.js");
+          echo cls_HTML::html_css_header(__CSS_PATH . "style.css","screen");
+      ?>
+    <title>UCREAUTH v1.0</title>   
+  </head>
+
+  <body id="cp_page">
+  
+   <div>
+		<div id="control_panel">
+			 <?php 
+		        $userdata=new cls_User();
+		   	  $row=$userdata->get_Userdata($_SESSION['USERNAME']);
+		   				  		   
+				  echo "<span>Bienvenid@ <b>" . $row[0][1] . "</b></span>";
+		    ?>
+			 <div id="services_icons">	  
+				 <?php
+				     //Obtenemos los servicios habilitados para el usuario
+				 	  $services=new frm_Service();
+				     $row=$services->get_Services($row[0][1]);
+				  
+				     $i=0;
+					  foreach($row as $value){ 
+					   
+		                $url_complement="";   
+		                
+		                switch($row[$i][1]){
+		                	case "mediawiki":
+		                	    $url_complement="&wpName=" . $row[$i][5];
+		                	break;
+		               	case "moodle":
+		                	    $url_complement="?username=".$row[$i][5];
+		                	break;
+		                }			  	    
+					  	    //Parámetros de: html_img_link($src, $href, $target, $title $id, $class, $alt, $event)
+					  	    echo cls_HTML::html_img_link( __RSC_IMG_HOST_PATH . $row[$i][2] , $row[$i][4] . $url_complement, "_self" ,$row[$i][3], $row[$i][1], "img_link", "", $row[$i][1], "");
+						  	 $i++;
+					  }
+				 ?>
+			 </div>
+			 <div id="cp_icons_panel">
+			     <?php echo cls_HTML::html_img_link(__IMG_PATH . "usuarios_32.png" , "#", "_self" ,"Usuarios", "icon_1", "cp_icons", "new_user","", "onclick=\"open_form('tpt_users.php',680,410);\""); ?>	  			
+		    </div>
+     </div>
+     
+	     <div id="form_base">
+	       <?php echo cls_HTML::html_img_link(__IMG_PATH . "exit.png" , "#", "_self" ,"Cerrar", "button_close", "button_action", "cerrar", "", "onclick=\"close_form('tpt_users.php');\""); ?>
+	       <iframe id="form_container" src=""></iframe>
+	     </div>
+	     
+    <div id="inactive_base"></div>
+    
+  </body>
+
+</html>

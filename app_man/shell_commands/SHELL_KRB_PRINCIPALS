@@ -1,0 +1,2 @@
+awk '{ print "ank -needchange -pw", $2, $1 }' < /tmp/princnames | 
+        time /usr/sbin/kadmin.local> /dev/null

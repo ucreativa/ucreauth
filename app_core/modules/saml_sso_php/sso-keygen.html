@@ -1,0 +1,637 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+
+
+
+
+
+
+
+
+ 
+ 
+ 
+ 
+ 
+  
+  
+  
+
+
+<html>
+  <head>
+    
+<meta http-equiv="content-type" content="text/html; charset=utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+<title>Generating Keys and Certificates for Google Apps Single Sign-On Service - Google Apps APIs - Google Code</title>
+<script type="text/javascript"><!--
+(function(){function a(){this.t={};this.tick=function(c){this.t[c]=(new Date).getTime()};this.tick("start")}var b=new a;window.jstiming={Timer:a,load:b};if(window.external&&window.external.pageT)window.jstiming.pt=window.external.pageT;})();
+
+var _tocPath_ = '/apis/apps/_toc.ezt';
+var codesite_token = null;
+var logged_in_user_email = null;
+//--></script>
+<link href="/css/codesite.pack.04102009.css" type="text/css" rel="stylesheet">
+<script src="/js/codesite_head.pack.04102009.js" type="text/javascript"></script>
+<script type="text/javascript">CODESITE_CSITimer['load'].tick('bhs');</script>
+<link rel="search" type="application/opensearchdescription+xml" title="Google Code" href="/osd.xml">
+
+<!--[if IE]><link rel="stylesheet" type="text/css" href="/css/iehacks.css"><![endif]-->
+
+    <link rel="stylesheet" type="text/css" href="/css/semantic_headers.css" />
+  </head>
+
+  <body class="gc-documentation">
+
+    
+    
+    <script type="text/javascript">
+var _gaq = _gaq || [];
+
+var cookiePath = '/apis/apps/index.html';
+if (cookiePath.lastIndexOf('.html') > cookiePath.lastIndexOf('/')) {
+  cookiePath = cookiePath.substring(0, cookiePath.lastIndexOf('/') + 1);
+};
+
+_gaq.push(
+
+
+    ['siteTracker._setAccount', 'UA-18071-1'],
+    ['siteTracker._setDomainName', 'code.google.com'],
+    ['siteTracker._trackPageview']
+);
+(function() {
+  var ga = document.createElement('script');
+  ga.type = 'text/javascript';
+  ga.async = true;
+  ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+  (document.getElementsByTagName('head')[0] ||
+   document.getElementsByTagName('body')[0]).appendChild(ga);
+ })();
+</script>
+
+
+<div id="gb">
+ <span>
+  
+   
+    <a href="#"
+       id="projects-dropdown" onclick="return false;"
+       ><span style="text-decoration:underline">My favorites</span> <span style="font-size:.75em;">&#9660;</span></a>
+    |
+  
+    <a id="lang-dropdown" href="/" onclick="return false;"><span style="text-decoration:underline">English</span> <span style="font-size:.75em;">&#9660;</span></a>
+  
+   
+    | <a href="https://www.google.com/accounts/Login?continue=http%3A%2F%2Fcode.google.com%2Fintl%2Fes%2Fapis%2Fapps%2Farticles%2Fsso-keygen.html&amp;followup=http%3A%2F%2Fcode.google.com%2Fintl%2Fes%2Fapis%2Fapps%2Farticles%2Fsso-keygen.html" onclick="CODESITE_click('/gb/sc/signin');"><span style="style:text-decoration:underline">Sign in</span></a>
+   
+  
+ </span>
+</div>
+
+<div class="gbh" style="left:0px;"></div>
+<div class="gbh" style="right:0px;"></div>
+
+
+<div id="gc-container">
+<a id="top"></a>
+<div id="skipto">
+  <a href="#gc-pagecontent">Skip to page content</a>
+  <a href="#gc-toc">Skip to main navigation</a>
+</div>
+
+<div id="gc-header">
+  <div id="logo"><a href="/">
+  
+  
+     <img src="/images/code_logo.gif" height="40" width="167" alt="Google Code" style="border:0;margin:3px 0 0 0;">
+  
+  
+  </a></div>
+  <div id="search">
+    <div id="searchForm">
+      <form id="cse" action="http://www.google.com/cse" accept-charset="utf-8" onsubmit="executeGSearch(document.getElementById('gsearchInput').value); return false;">
+      <noscript>
+      <input type="hidden" name="cref" value="http://code.google.com/cse/googlecode-context.xml">
+      </noscript>
+      <div id="gsc-search-box">
+        <input id="gsearchInput" type="text" name="q" maxlength="2048" class="gsc-input" autocomplete="off" title="Google Code Search" style="width:345px">
+        <div id="cs-searchresults" onclick="event.cancelBubble = true;"></div>
+        <input title="Search" id="gsearchButton" class="gsc-search-button" name="sa" value="Search" type="submit">
+        <div class="greytext">e.g. "adwords" or "open source"</div>
+      </div>
+      </form>
+    </div> <!-- end searchForm -->
+  </div> <!-- end search -->
+
+
+
+
+</div> <!-- end gc-header -->
+
+
+<div id="codesiteContent">
+
+<a id="gc-topnav-anchor"></a>
+<div id="gc-topnav">
+  <h1 style="padding:0 0 0 6px;">Google Apps APIs</h1>
+  <ul id="articles" class="gc-topnav-tabs">
+
+    <li id="home_link">
+      <a href="/apis/apps/index.html" title="Google Apps APIs home page">Home</a>
+    </li>
+  
+    <li id="docs_link">
+      <a href="/apis/apps/overview.html" title="Official Google Apps APIs documentation">Docs</a>
+    </li>
+  
+    <li id="faq_link">
+      <a href="/apis/apps/faq.html" title="Answers to frequently asked questions about Google Apps APIs">FAQ</a>
+    </li>
+  
+    <li id="articles_link">
+      <a href="/apis/apps/articles/" class="selected" title="Focused articles and tutorials for Google Apps APIs developers">Articles</a>
+    </li>
+  
+    <li>
+      <a href="http://googleappsdeveloper.blogspot.com" title="Official Google Apps APIs blog">Blog</a>
+    </li>
+  
+    <li>
+      <a href="http://www.google.com/support/forum/p/apps-apis?hl=en" title="Google Apps APIs developer forum">Forum</a>
+    </li>
+  
+    <li>
+      <a href="http://www.google.com/a/help/intl/en/admins/api_terms.html" title="Google Apps APIs terms of service">Terms</a>
+    </li>
+  
+
+  
+  
+  
+  
+  <li><g:plusone size="small" count="false"></g:plusone>&nbsp;</li>
+</ul>
+</div> <!-- end gc-topnav -->
+
+
+    <div class="g-section g-tpl-210">
+
+      <a name="gc-toc"></a>  
+      <div class="g-unit g-first" id="gc-toc">
+        <ul>
+ <li><h2>About Google Apps APIs</h2>
+  <ul>
+   <li><a href="/apis/apps/overview.html">Overview</a></li>
+   <li><a href="/apis/apps/start.html">Getting Started</a></li>
+  </ul> 
+ </li>
+ <li><h2>Management APIs</h2>
+  <ul>
+      <li><a href="/apis/apps/sso/saml_reference_implementation.html">Single Sign-On RP</a></li>
+      <li><a href="/apis/apps/sso/openid_reference_implementation.html">Federated Login IDP</a></li>   
+   <li><a href="/apis/apps/reporting/google_apps_reporting_api.html">Reporting API</a></li>
+   <li><a href="/apis/apps/reporting/google_apps_reporting_visualization_api.html">Reporting Visualization API</a></li>
+   <li><a href="/apis/apps/admin_settings/docs/1.0/admin_settings_developers_guide_protocol.html">Admin Settings API</a></li>
+   <li><a href="/apis/apps/calendar_resource/docs/1.0/calendar_resource_developers_guide_protocol.html">Calendar Resource API</a></li>
+  </ul>
+  <ul>
+   <li><span class="tlw-title">Provisioning API</span>
+    <ul>
+     <li><a href="/apis/apps/gdata_provisioning_api_v2.0_developers_protocol.html">Developer's Guide</a>
+      <ul>
+       <li><a href="/apis/apps/gdata_provisioning_api_v2.0_reference_java.html">Java</a></li>
+       <li><a href="/apis/apps/gdata_provisioning_api_v2.0_reference_dotnet.html">.NET</a></li>
+       <li><a href="/apis/apps/gdata_provisioning_api_v2.0_reference_php.html">PHP</a></li>
+       <li><a href="/apis/apps/gdata_provisioning_api_v2.0_reference_python.html">Python</a></li>
+      </ul>
+     </li>
+     <li><a href="/apis/apps/gdata_provisioning_api_v2.0_reference.html">Reference Guide</a></li>	
+    </ul>
+   </li>
+   <li><span class="tlw-title">Email Migration API</span>
+    <ul>
+     <li><a href="/apis/apps/email_migration/developers_guide_protocol.html">Developer's Guide</a>
+      <ul>
+       <li><a href="/apis/apps/email_migration/developers_guide_java.html">Java</a></li>
+       <li><a href="/apis/apps/email_migration/developers_guide_dotnet.html">.NET</a></li>
+      </ul>
+     </li>
+     <li><a href="/apis/apps/email_migration/reference.html">Reference Guide</a></li>
+    </ul>
+   </li>
+  </ul>
+ <li><h2>Application APIs</h2>
+  <ul>
+   <li><a href="/apis/apps/shared_contacts/gdata_shared_contacts_api_reference.html">Domain Shared Contacts</a></li>   
+   <li><span class="tlw-title">User Profiles API</span>
+     <ul>
+       <li><a href="/apis/apps/profiles/developers_guide_protocol.html">Developer's Guide</a>
+       <li><a href="/apis/apps/profiles/reference.html">Reference Guide</a>
+     </ul>
+   </li>
+   <li><a href="/apis/contacts/docs/2.0/developers_guide.html">Contacts Data API</a></li>
+   <li><a href="/apis/calendar/docs/2.0/developers_guide.html">Calendar Data API</a></li>
+   <li><a href="/apis/documents/docs/2.0/developers_guide.html">Documents List Data API</a></li>
+   <li><a href="/apis/spreadsheets/docs/2.0/developers_guide.html">Spreadsheets Data API</a></li>
+   <li><a href="/apis/sites/docs/developers_guide.html">Sites Data API</a></li>
+   <li><a href="/apis/apps/email_settings/developers_guide_protocol.html">Email Settings API</a></li>
+   <li><a href="/apis/accounts/docs/OAuth.html#GoogleAppsOAuth">2-legged OAuth for Google Apps Data</a></li>
+   <li><a href="http://gmail.google.com/support/bin/answer.py?answer=13465">Gmail Inbox Feed</a></li>
+  </ul>
+ </li>
+ <li><h2>Resources</h2>
+  <ul>
+   <li><a href="/apis/apps/libraries_and_samples.html">Client Libraries and Sample Code</a></li>
+   <li><a href="/apis/apps/open_source_projects.html">Open Source Projects</a></li>
+   <li><a href="http://www.google.com/support/a/bin/answer.py?answer=60730">Email Gateway Interface</a></li>
+  </ul>
+ </li>
+ <li><h2>Solutions Marketplace</h2>
+  <ul>
+   <li><a href="http://www.google.com/enterprise/marketplace/">View Solutions</a></li>        
+   <li><a href="http://www.google.com/enterprise/enterprise_marketplace/vendor_guide.html">Share Solutions</a></li>
+   <li><a href="http://apps.gepportal.com/">Become a Solutions Provider</a></li>
+  </ul>
+ </li>
+</ul>
+
+
+      </div>
+      
+      <a name="gc-pagecontent"></a>   
+      <div class="g-unit" id="gc-pagecontent">
+        <script type="text/javascript">CODESITE_docEarlyProcessing();</script>
+        <h1 class="page_title">Generating Keys and Certificates for Google Apps Single Sign-On Service</h1>
+
+  
+<!-- ########## PAGE CONTENT ########## -->
+  
+<p class="para"><cite>Amanda Surya, Google Apps APIs Team<br />
+July 2007</cite></p>
+
+<p class="para"></p>
+
+<h2>Contents</h2>
+<ol class="toc">
+  <li><a href="#Introduction">Introduction</a></li>
+
+  <li><a href="#OpenSSL">Using OpenSSL</a></li>
+  <li><a href="#DotNetTools">Using Certificate Creation tool and Pvk2pfx tool in .NET</a></li>
+  <li><a href="#JavaKeyTool">Using Keytool in Java</a></li>
+  <li><a href="#UsingJCA">Using Java Cryptography Architecture</a></li>
+  <li><a href="#Register">Registering your certificate or public key with Google Apps</a></li>
+  <li><a href="#Conclusion">Conclusion</a></li>
+</ol>
+
+<h2 id="Introduction">Introduction</h2>
+
+<p class="para">
+<a href="http://www.google.com/a">Google Apps</a> offers the Single Sign-On (SSO) service to customers with Premier, Education, and Partners editions. 
+The <a href="http://code.google.com/apis/apps/sso/saml_reference_implementation.html">Google Apps Single Sign-On</a> service accepts public keys and certificates generated with either the RSA or DSA algorithm. 
+To use the service, you need to generate the set of public and private keys and an X.509 certificate that contains the public key. 
+Once you have a public key or certificate, you would then need to register it with Google. You can do this by simply uploading the key or certificate via your Google Apps Control Panel.</p>
+
+<p class="para">
+The way you generate keys and certificates often depends on your development platform and programming language preference. In this article, I will show you several different ways to generate the keys and certificate needed by the Google Apps SSO service.</p>
+
+<h2 id="OpenSSL">Using OpenSSL</h2>
+
+<p class="para">
+Although there are many methods for creating public and private key pairs, the open-source OpenSSL tool is one of the most popular.  It has been ported to all major platforms and provides a simple command-line interface for key generation.</p>
+
+<h3>Creating RSA Private Key</h3>
+<p class="para">
+RSA private key generation with OpenSSL involves just one step:</p>
+<pre>
+openssl genrsa -out rsaprivkey.pem 1024
+</pre>
+<p class="para">
+This command generates a PEM-encoded private key and stores it in the file rsaprivkey.pem.  This example creates a 1024-bit key, which should work for nearly any purpose. The resulting private key should be kept secret and is used to sign and decrypt data.
+</p>
+<p class="para">To be able to use the key with the <a href="http://code.google.com/apis/apps/libraries_and_samples.html">Java SSO sample code</a> however, you need to take the following additional steps:
+</p>
+<pre>
+1. openssl rsa -in rsaprivkey.pem -pubout -outform DER -out rsapubkey.der
+2. openssl pkcs8 -topk8 -inform PEM -outform DER -in rsaprivkey.pem -out rsaprivkey.der -nocrypt
+</pre>
+<p class="para">
+Step 1 generates the public key in DER format. Step 2 generates the private key in <a href="http://www.openssl.org/docs/apps/pkcs8.html">pkcs8</a> and DER format. Once generated, you can use these keys (rsapubkey.der and rsaprivkey.der) in the Java SSO sample.
+</p>
+<p class="para">
+<i>Note that the Java SSO sample code by default expects a DSA key pair, so with RSA keys, you would need to modify the sample code to accept RSA.</i>
+</p>
+<h3>Creating DSA Private Key</h3>
+<p class="para">DSA key generation involves two steps:</p>
+<pre>
+1. openssl dsaparam -out dsaparam.pem 1024
+2. openssl gendsa -out dsaprivkey.pem dsaparam.pem
+</pre>
+<p class="para">
+The first step creates a DSA parameter file, dsaparam.pem, which in this case instructs OpenSSL to create a 1024-bit key in Step 2.  The dsaparam.pem file is not itself a key, and can be discarded after the public and private keys are created.  The second step actually creates the private key in the file dsaprivkey.pem which should be kept secret.
+</p>
+<p class="para">To use the <a href="http://code.google.com/apis/apps/libraries_and_samples.html">Java SSO sample code</a>, you would need to export the key into a DER (binary) format. You can do so with the following steps:
+</p>
+<pre>
+1. openssl dsa -in dsaprivkey.pem -outform DER -pubout -out dsapubkey.der
+2. openssl pkcs8 -topk8 -inform PEM -outform DER -in dsaprivkey.pem -out dsaprivkey.der -nocrypt
+</pre>
+<p class="para">
+Step 1 extracts the public key into a DER format. Step 2 converts the private key into the <a href="http://www.openssl.org/docs/apps/pkcs8.html">pkcs8</a> and DER format. Once you've done this, you can use this public (dsapubkey.der) and private (dsaprivkey.der) key pair with the Java sample code.
+</p>
+<h3>Creating a Certificate</h3>
+<p class="para">Once you have your key pair, it's easy to create an X.509 certificate.  The certificate holds the corresponding public key, along with some metadata relating to the organization that created the certificate. Follow this step to create a self-signed certificate from either an RSA or DSA private key:
+</p>
+<pre>
+openssl req -new -x509 -key dsaprivkey.pem -out dsacert.pem</code></li>
+</pre>
+<p class="para">
+After you answer a number of questions, the certificate will be created and saved as dsacert.pem. This is the file you <a href="#Register">upload to Google Apps via the Control Panel when configuring SSO</a>.
+</p>
+
+<h2 id="DotNetTools">Using Microsoft Visual Studio for .NET</h2>
+
+<p class="para">Microsoft Visual Studio 2005 provides utilities (in the Common7\Tools\Bin directory) which can be used to
+generate a certificate for use with Google Apps. Follow the steps below to create the public and private key pair and certificate in .NET:
+</p>
+<pre>
+1. makecert -r -pe -n "CN=Test Certificate" -sky exchange -sv testcert.pvk testcert.cer
+2. pvk2pfx -pvk testcert.pvk -spc testcert.cer -pfx testcert.pfx
+</pre>
+<p class="para">
+By default the RSA algorithm is used in the commands above. Step 1 uses the <a href="http://msdn2.microsoft.com/en-us/library/bfsktky3(VS.80).aspx">Certificate Creation</a> Tool (makecert.exe) to create a self signed X.509 certificate called testcert.cer and the corresponding private key. Step 2 uses the <a href="https://msdn2.microsoft.com/en-us/library/aa906332.aspx">pvk2pfx</a> Tool (pvk2pfx.exe) to create a Personal Information Exchange (PFX) file from a CER and PVK file. The PFX contains both your public and private key.
+</p>
+<p class="para">The testcert.cer file created in Step 1 can be uploaded to Google Apps using the Control Panel; and, testcert.pfx from Step 2 can be used to create an X509Certificate2 (.NET 2.0+) instance for signing the SAML response. This is demonstrated in the <a href="http://code.google.com/apis/apps/libraries_and_samples.html">ASP.NET SSO sample application</a>. 
+</p>
+
+<h2 id="JavaKeyTool">Using Keytool in Java</h2>
+<p class="para">Java developers can use the <b>keytool</b> utility found in the standard JDK to create the public/private key pair and X.509 certificate. <b>keytool</b> is a key and certificate management utility that allows users to administer their own public/private key pairs and associated certificates for use in authentication schemes requiring digital signatures. <b>keytool</b> stores keys and certificates in a "keystore" which for the default implementation is simply a file (".keystore") in the user's home directory. Private keys are guarded with passwords.
+</p>
+
+<h3>Creating DSA key pairs</h3>
+<pre>
+1. keytool -genkey -alias dsassokey -keyalg "DSA" -keysize 1024 -validity 180
+2. keytool -export -alias dsassokey -file dsasso.cer
+</pre>
+<p class="para">
+Step 1 generates a public/private key pair with size 1024 and validity of 180 days using the DSA algorithm. Step 2 generates an X.509 certificate ("dsasso.cer") from the public key. You then <a href="#Register">upload</a> dsasso.cer to Google Apps using the Control Panel. 
+</p>
+<h3>Creating RSA key pairs</h3>
+<pre>
+1. keytool -genkey -alias rsassokey -keyalg "RSA" -keysize 1024 -validity 180
+2. keytool -export -alias rsassokey -file rsasso.cer
+</pre>
+<p class="para">
+The above steps show how you can generate the same pair of keys and certificate but using the RSA algorithm. As in the DSA example, you then <a href="#Register">upload</a> the generated file ("rsasso.cer") to Google Apps.
+</p>
+<p class="para">
+You can see that generating keys and certificate is really simple using <b>keytool</b>. However, as I touched on earlier, to use the Java sample code, you would need to extract the raw public and private keys. There is no straightforward way to do this using the keytool utility itself. However, you can get around this limitation by running the following two simple Java programs:
+</p>
+<pre class="prettyprint">
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.OutputStream;
+import java.security.KeyStore;
+import java.security.Key;
+ 
+public class ExtractPrivateKey {
+  static public void main(String[] args) {
+    try {
+      KeyStore ks = KeyStore.getInstance("jks");
+      ks.load(new FileInputStream(".keystore"),
+	      "password".toCharArray());
+      Key key = ks.getKey("aliasname",
+          "password".toCharArray());
+	  OutputStream privateKyFileOs = new FileOutputStream("dsaprivate.key");
+	  privateKyFileOs.write(key.getEncoded());
+	  privateKyFileOs.close();
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
+  }
+}
+</pre>
+<p class="para">The code above extracts the private key identified by the aliasname from the keystore and outputs it into a file called dsaprivate.key.
+</p>
+
+<pre class="prettyprint">
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.security.KeyFactory;
+import java.security.NoSuchAlgorithmException;
+import java.security.PublicKey;
+import java.security.cert.CertificateException;
+import java.security.cert.CertificateFactory;
+import java.security.cert.X509Certificate;
+import java.security.spec.InvalidKeySpecException;
+import java.security.spec.X509EncodedKeySpec;
+
+/**
+ * This class is capable of extracting a public key from a X.509 certficate 
+ * and returning the PublicKey representation from a referenced byte array.
+ * 
+ */
+public class ExtractPublicKey {
+  
+  // Certificate Filename (Including Path Info)
+  private static final String certFilename = "cacert.pem";
+    
+  // Public Key Filename (Including Path Info)
+  private static final String pubKeyFilename = "dsapublic.key";
+
+  public static PublicKey generatePublicKey(byte[] encodedKey)
+      throws NoSuchAlgorithmException, InvalidKeySpecException {
+    
+    X509EncodedKeySpec pubSpec = new X509EncodedKeySpec(encodedKey);
+    boolean isSupportedKey = false;
+    KeyFactory factory;
+    PublicKey retKey = null;
+    
+    //first try the DSA alg
+    try {
+      factory = KeyFactory.getInstance("DSA");
+      retKey = factory.generatePublic(pubSpec);
+      isSupportedKey = true;
+    } catch (InvalidKeySpecException e) {
+      System.out.println("Could not create DSA Public Key: " + e.toString());      
+    }
+    
+    //if DSA didnt work, then try RSA    
+    if (!isSupportedKey) {
+      try {
+        factory = KeyFactory.getInstance("RSA");
+        retKey = factory.generatePublic(pubSpec);
+        isSupportedKey = true;
+      } catch (InvalidKeySpecException e) {
+        System.out.println("Could not create RSA Public Key: " + e.toString());
+      }      
+    }
+
+    // if not DSA or RSA
+    if (!isSupportedKey) {
+      throw new InvalidKeySpecException("Unsupported key spec: Not RSA or DSA");
+    }
+    
+    return retKey;
+  }   
+  
+  public static void main(String [] args) {
+    
+    try {
+      
+      InputStream certFileIs = new FileInputStream(certFilename);
+      CertificateFactory cf = CertificateFactory.getInstance("X509");
+      X509Certificate cert = 
+          (X509Certificate) cf.generateCertificate(certFileIs);        
+      OutputStream publicKyFileOs = new FileOutputStream(pubKeyFilename);
+      publicKyFileOs.write(cert.getPublicKey().getEncoded());
+      publicKyFileOs.close();
+      
+    } catch (IOException e) {
+      e.printStackTrace();       
+    } catch (CertificateException e) {
+      e.printStackTrace();
+    }
+    
+  }
+}
+</pre>
+<p class="para">
+The code above extracts the public key from the X.509 certificate and outputs it into a file called dsapublic.key.
+</p>
+<h2 id="UsingJCA">Using Java Cryptography Architecture</h2>
+<p class="para">Java Cryptography Architecture (JCA) provides core classes and interfaces to generate and manipulate security properties. The JCA encompasses the parts of the Java 2 SDK Security API related to cryptography. Using this API, you can easily generate public and private key pairs in the desired algorithm. Let me show you a sample code that creates DSA or RSA keys to be used with the Google Apps SSO service.</p>
+
+<h3>Creating public and private key pair</h3>
+<pre class="prettyprint">
+import java.io.*;
+import java.security.*;
+
+public class KeyGenDSA {
+
+  public static void main(String[] args) {
+	try {
+   	  KeyPairGenerator keyGen = KeyPairGenerator.getInstance("DSA", "SUN");
+	  SecureRandom random = SecureRandom.getInstance("SHA1PRNG", "SUN");
+	  keyGen.initialize(1024, random);
+
+	  KeyPair pair = keyGen.generateKeyPair();
+	  PrivateKey priv = pair.getPrivate();
+	  PublicKey pub = pair.getPublic();
+
+	  byte[] encPriv = priv.getEncoded();
+	  FileOutputStream privfos = new FileOutputStream("DSAPrivateKey.key");
+	  privfos.write(encPriv);
+	  privfos.close();
+
+	  byte[] encPub = pub.getEncoded();
+	  FileOutputStream pubfos = new FileOutputStream("DSAPublicKey.key");
+	  pubfos.write(encPub);
+	  pubfos.close();
+
+   } catch (Exception e) {
+	 e.printStackTrace();
+   }
+  }
+}
+</pre>
+<p class="para">The code above uses the KeyPairGenerator to create a pair of DSA keys. The generated keys will be in binary format and are output into individual files. Once you have the keys, you can register the public key with Google Apps and use the private key to sign your SAMLResponse. To generate a pair of RSA keys instead of DSA, all you need to do is to replace "DSA" in the code with "RSA." 
+</p>
+
+<h2 id="Register">Registering your certificate or public key with Google Apps</h2>
+<p class="para">
+Once you have done the tricky part of generating keys and certificates, the next part is really simple. To register your certificate or public key with Google Apps, you need to go to your Google Apps Control Panel <b>http://www.google.com/a/yourdomainname.com</b> and log in as an administrator. Select <b>Advanced Tools</b>, then <b>Set up single sign-on (SSO)</b>, and fill in all the fields on the page:
+</p>
+
+<img src="http://www.google.com/help/hc/images/apps_001_SSOScreen.png" style="border: 1px solid black;" alt="Google Apps Control Panel showing SSO settings page">
+
+<p class="para">
+<b>Sign-in page URL</b>: This is the URL Google will redirect to when your domain end users try to access Google Apps.</p>
+<p class="para">
+<b>Sign-out page URL</b>: This is the URL Google will redirect to when your domain end users log out from Google Apps.</p>
+<p class="para">
+<b>Change Password URL</b>: This is the URL Google will redirect to when your domain end users try to change their passwords within Google Apps.</p>
+<p class="para">
+<b>Verification Certificate</b>: This is where you upload your X.509 certificate containing the public key. The binary public key file itself can be uploaded in place of a certificate.</p>
+<p class="para">
+Make sure you select the 'Enable Single Sign-on' check box. Then press the 'Save Changes' button to complete the process.
+</p>
+
+<h2 id="Conclusion">Conclusion</h2>
+
+<p class="para">
+This brief tutorial has illustrated how you can generate DSA and RSA keys and create certificates to be used with the Google Apps SSO service. I've only scratched the surface with these examples. There are certainly many more ways to generate the keys and certificate you need. The methods shown here represent some of the more popular ones. If you'd like more information on each of the tools, check out the
+list of resources below.
+</p>
+
+<p class="para">
+Tools and sample code covered in this article:
+</p>
+<ul>
+  <li><a href="http://www.openssl.org/docs/apps/openssl.html">OpenSSL</a></li>
+  <li><a href="http://msdn2.microsoft.com/en-us/library/bfsktky3(VS.80).aspx">.NET Certificate Creation Tool</a></li>
+
+  <li><a href="https://msdn2.microsoft.com/en-us/library/aa906332.aspx">.NET Pvk2pfx Tool</a></li>
+  <li><a href="http://java.sun.com/j2se/1.5.0/docs/tooldocs/windows/keytool.html">Java Keytool</a></li>
+  <li><a href="http://java.sun.com/j2se/1.5.0/docs/guide/security/CryptoSpec.html">Java Cryptography Architecture</a></li>
+  <li><a href="http://code.google.com/apis/apps/libraries_and_samples.html">Google Apps SSO Sample Code</a></li>
+</ul>
+<p class="para">
+Related knowledge base items:
+</p>
+<ul>
+  <li><a href="/apis/apps/faq.html#samlversion">What version of SAML does the Google Apps SSO service support?</a></li>
+  <li><a href="/apis/apps/faq.html#sso">If our domain implements SSO, can we still login to Google directly?</a></li>
+  <li><a href="/apis/apps/faq.html#persistentcookie">Why can't I set a persistent cookie at Google using the SAML SSO solution?</a></li>
+  <li><a href="/apis/apps/faq.html#nonpersistentcookie">How can the non-persistent session cookie that identifies a user during a browser session be deleted (e.g. upon logout)?</a></li>
+</ul>
+
+<p class="para">If you have questions or suggestions, I'd enjoy hearing from you. Hop to the <a href="http://www.google.com/support/forum/p/apps-apis?hl=en">Google Apps APIs Help Forum</a> and start posting.</p>
+
+<!-- ########## END PAGE CONTENT ########## -->
+  
+   
+      </div><!-- end gc-pagecontent -->
+   </div><!-- end gooey wrapper -->
+
+    </div> <!-- end codesite content -->
+
+
+<div id="gc-footer" dir="ltr">
+  <div class="text">
+    
+    ©2011 Google -
+    <a href="/">Code Home</a> -
+    <a href="/terms.html">Site Terms of Service</a> -
+    <a href="/privacy.html">Privacy Policy</a> -
+    <a href="/more/">Site Directory</a>
+    <br> <br>
+    Google Code offered in:
+    <a href="/intl/en/">English</a> -
+    <a href="/intl/es/">Español</a> -
+    <a href="/intl/ja/">日本語</a> -
+    <a href="/intl/ko/">한국어</a> -
+    <a href="/intl/pt-BR/">Português</a> -
+    <a href="/intl/ru/">Pусский</a> -
+    <a href="/intl/zh-CN/">中文(简体)</a> -
+    <a href="/intl/zh-TW/">中文(繁體)</a>
+  </div>
+</div><!-- end gc-footer -->
+
+</div><!-- end gc-container -->
+
+<script type="text/javascript">CODESITE_CSITimer['load'].tick('ats');</script>
+<script src="/js/codesite_tail.pack.04102009.js" type="text/javascript"></script>
+<script type="text/javascript" src="https://apis.google.com/js/plusone.js"></script>
+
+
+
+
+
+  </body>
+</html>
+

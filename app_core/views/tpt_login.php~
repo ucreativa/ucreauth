@@ -1,0 +1,44 @@
+﻿<?php
+    require_once($_SERVER["DOCUMENT_ROOT"] . "/ucreauth/global.php");
+    require_once(__CLS_PATH . "cls_html.php");
+    require_once(__FRM_PATH . "frm_login.php");
+    
+    global $frm_login;
+    $frm_login=new frm_Login();
+    $frm_login_set=cls_HTML::html_form_tag("frm_login", "","","post");
+?>
+
+<div id="login">
+     
+    <?php echo $frm_login_set ?>
+    <?php echo cls_HTML::html_label_tag("USUARIO:"); ?>
+    <?php echo cls_HTML::html_input_text("txt_user","txt_user","text",64,"",0,"","","required"); ?>
+    <br /><br />
+    <?php echo cls_HTML::html_label_tag("PASSWORD:"); ?>
+    <?php echo cls_HTML::html_input_password("txt_pssw","txt_pssw","text",64,"",0,"","","required"); ?>
+    <br /><br />
+    <?php echo cls_HTML::html_input_button("submit","btn_login","btn_login","button","Entrar",0,"",""); ?>
+    <br /><br />
+    <?php echo cls_HTML::html_form_end(); ?>
+    
+</div>
+
+<div id="sub_login">
+	<?php     
+        //Parámetros del: html_link_tag($text, $id, $class, $href, $target, $title);	     
+	     echo cls_HTML::html_link_tag("¿Olvidaste tu contraseña?", "btn_forgot", "link", "#", "_self", "¿Olvidaste tu contraseña?","");
+	     echo cls_HTML::html_link_tag("Registrarse", "btn_register", "link", "#", "_self", "Registrarse","");
+	?>
+</div>
+
+ <?php
+ 
+    	if(isset($_POST['txt_pssw']) && isset($_POST['txt_pssw']))
+		{
+			$username=$_POST['txt_user']; 
+			$password=$_POST['txt_pssw'];
+
+			$frm_login_set=cls_HTML::html_form_tag("frm_login", $frm_login->login($username, $password),"","post");			
+		}
+
+ ?>

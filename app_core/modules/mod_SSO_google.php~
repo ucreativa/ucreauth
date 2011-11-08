@@ -1,0 +1,26 @@
+﻿<?php
+
+	class mod_SSO_google {
+	   
+	   var $ouput;
+	   var $core_conn;
+	   var $conn_status;
+
+	   public function __construct(){
+          $this->conn_data=$connection;
+	   }
+
+	   public function db_connect() {
+		    try{
+                $this->core_conn=mysql_pconnect($this->conn_data->get_dbhost(),$this->conn_data->get_dbuser(),$this->conn_data->get_dbpassw());
+                mysql_select_db($this->conn_data->get_dbname());
+                mysql_query ("SET NAMES 'utf8'");
+			 }catch(Exception $e){
+				 cls_Message::show_message($e->getMessage(),"error","");
+			 }
+
+			 return $this->core_conn;
+ 	   }
+	}
+	
+?>

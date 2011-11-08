@@ -1,0 +1,15 @@
+<?php
+ 
+	class MyException extends Exception
+	{	 
+	    public function getErrorReport() {        
+			  try {
+		          throw new MyException("Sorry, there's an error.");
+				} catch (Exception $e) {
+				    echo "sdffsd";
+				}
+	    }
+	}
+	
+	set_exception_handler("MyException::getErrorReport");
+?>

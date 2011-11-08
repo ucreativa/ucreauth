@@ -1,0 +1,27 @@
+Estructura APACHE:
+>modulos:usr/lib/apache2
+>configuracion: etc/apache2
+
+Estructura PHP:
+>binarios: ubicados en: /user/bin
+>extensiones: usr/include/ext
+>librerias: usr/lib
+>configuracion: etc/apache2/php.ini
+>compartidos: usr/share/php5
+>compartidos ext-PEAR: usr/share/php
+>archivos .php : var/
+>configure -make PHP: etc/php5
+                    : etc/php5/build
+
+INTEGRACIÓN: sudo apt-get install libapache2-mod-php5
+
+>Estructura Kerberos:
+>librerias: usr/kerberos -- usr/krb5
+>librerias: usr/lib/i386... --- 
+>files-serv krbkdc: var/
+
+
+
+
+
+

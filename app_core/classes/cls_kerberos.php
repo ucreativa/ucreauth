@@ -1,0 +1,120 @@
+﻿﻿<?php
+    require_once($_SERVER["DOCUMENT_ROOT"] . "/ucreauth/global.php");
+
+    class cls_Kerberos {
+    	
+  	    var $ticket;
+  	    var $krb5_username;
+  	    var $flags;
+  	    var $conn_krb5_status;
+  	    var $kadmin;
+
+        function __construct(){
+          try{
+     	      $this->ticket=new KRB5CCache();
+     	    }catch(Exception $e){
+			    cls_Message::show_message($e->getMessage() ,"info","");
+			    
+			    $dir_ccache='app_core/resources/temps/my.ccache_' . $this->krb5_username;
+				 if(file_exists($dir_ccache))
+			    {
+			       unlink($dir_ccache);
+			    }
+		    }          
+        }
+
+        function get_ticket() {
+     	    return $this->ticket;
+        }
+
+        function get_entries() {
+     	    return $this->ticket->getEntries();
+        }
+
+        function isValid() {
+           try{
+     	       return $this->ticket->isValid();
+           }catch(Exception $e){
+			   cls_Message::show_message($e->getMessage(),"error","");
+		   }
+        }
+
+        public function krb5_connect($user, $passw, $lifetime){		
+
+          $this->flags=array('forwardable'=> true, 'tkt_life'=> 60 + ($lifetime)); 
+		    $authenticate=0;
+
+	        try{
+				  $authenticate = $this->ticket->initPassword($user, $passw, $this->flags);
+				  $this->krb5_username=$user;
+			   }catch(Exception $e){
+			   	if($e->getMessage()=="Cannot get ticket (Decrypt integrity check failed)"
+                || $e->getMessage()=="Cannot get ticket (Client not found in Kerberos database)"){
+			         cls_Message::show_message("","warning","fail_auth");
+			      }else{
+			      	cls_Message::show_message($e->getMessage(),"error","");
+			      }
+			   }
+
+           try{
+		   	if ($authenticate==1)
+			 	{
+              // Si se autentifica correctamente creamos el archivo de sesión único                    
+              $this->conn_krb5_status=true;
+              $this->ticket->save('app_core/resources/temps/my.ccache_'.$user);
+
+			     } else {
+					$this->conn_krb5_status=false; 
+					exit;
+				  }
+				}catch(Exception $e){
+			     cls_Message::show_message($e->getMessage(),"error","");
+			   }
+				
+				return $this->conn_krb5_status;
+        }
+        
+        public function krb5_add_user($krb5_user,$krb5_password){
+            cls_Kerberos::setKADM5();
+        	$result=false;
+        	try{
+        	   	$krb5_princ=new KADM5Principal($krb5_user);
+            	$this->kadmin->createPrincipal($krb5_princ, $krb5_password);
+            	$krb5_princ->save();
+            	unset($krb5_princ);
+            	$result=true;
+            }catch(Exception $e){
+			    cls_Message::show_message($e->getMessage(),"error","");
+			}
+			   
+			   return $result;
+        }
+        
+        public function krb5_edit_userpssw($krb5_user,$krb5_newpassword){
+            cls_Kerberos::setKADM5();
+        	   $result=false;        	   
+        	   try{
+        	   	$krb5_princ=$this->kadmin->getPrincipal($krb5_user);
+            	$krb5_princ->changePassword($krb5_newpassword);
+            	$krb5_princ->save();
+            	unset($krb5_princ);
+            	$result=true;
+            }catch(Exception $e){
+			    cls_Message::show_message($e->getMessage(),"error","");
+			}
+			   
+			   return $result;
+        }
+
+        private function setKADM5(){
+          try{
+            //Usuario Administrador global
+     	    $this->kadmin=new KADM5("uti/admin@UCREATIVA.COM",".uti.server.administrador.",false);
+          }catch(Exception $e){
+             cls_Message::show_message($e->getMessage(),"error","");
+          }
+        }
+
+    }
+
+?>

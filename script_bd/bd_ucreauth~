@@ -1,0 +1,298 @@
+--
+-- PostgreSQL database dump
+--
+
+-- Started on 2011-06-27 17:22:36 CST
+
+SET statement_timeout = 0;
+SET client_encoding = 'UTF8';
+SET standard_conforming_strings = off;
+SET check_function_bodies = false;
+SET client_min_messages = warning;
+SET escape_string_warning = off;
+
+SET search_path = public, pg_catalog;
+
+SET default_with_oids = false;
+
+--
+-- TOC entry 1508 (class 1259 OID 26995)
+-- Dependencies: 1793 3
+-- Name: tbl_requests; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE tbl_requests (
+    request_id integer NOT NULL,
+    service_fk integer NOT NULL,
+    user_fk bigint NOT NULL,
+    request_info text DEFAULT 'no_info'::text NOT NULL
+);
+
+
+--
+-- TOC entry 1507 (class 1259 OID 26993)
+-- Dependencies: 1508 3
+-- Name: tbl_requests_request_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE tbl_requests_request_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MAXVALUE
+    NO MINVALUE
+    CACHE 1;
+
+
+--
+-- TOC entry 1812 (class 0 OID 0)
+-- Dependencies: 1507
+-- Name: tbl_requests_request_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE tbl_requests_request_id_seq OWNED BY tbl_requests.request_id;
+
+
+--
+-- TOC entry 1504 (class 1259 OID 26961)
+-- Dependencies: 1789 3
+-- Name: tbl_services; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE tbl_services (
+    service_id integer NOT NULL,
+    service_name character varying(64) DEFAULT 'no_name'::character varying NOT NULL,
+    service_icon character varying(64),
+    service_info character varying(128)
+);
+
+
+--
+-- TOC entry 1503 (class 1259 OID 26959)
+-- Dependencies: 3 1504
+-- Name: tbl_services_service_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE tbl_services_service_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MAXVALUE
+    NO MINVALUE
+    CACHE 1;
+
+
+--
+-- TOC entry 1813 (class 0 OID 0)
+-- Dependencies: 1503
+-- Name: tbl_services_service_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE tbl_services_service_id_seq OWNED BY tbl_services.service_id;
+
+
+--
+-- TOC entry 1502 (class 1259 OID 22807)
+-- Dependencies: 1787 3
+-- Name: tbl_users; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE tbl_users (
+    user_id integer NOT NULL,
+    user_krb_name character varying(64) NOT NULL,
+    user_photo character varying(64),
+    user_email character varying(128) DEFAULT 'no_email'::character varying NOT NULL
+);
+
+
+--
+-- TOC entry 1506 (class 1259 OID 26970)
+-- Dependencies: 1791 3
+-- Name: tbl_users_services; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE tbl_users_services (
+    user_service_id integer NOT NULL,
+    user_fk bigint NOT NULL,
+    service_fk integer NOT NULL,
+    user_service_username character varying(128) NOT NULL,
+    user_service_rol character varying(64) DEFAULT 'not_defined'::character varying NOT NULL
+);
+
+
+--
+-- TOC entry 1505 (class 1259 OID 26968)
+-- Dependencies: 1506 3
+-- Name: tbl_users_services_user_service_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE tbl_users_services_user_service_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MAXVALUE
+    NO MINVALUE
+    CACHE 1;
+
+
+--
+-- TOC entry 1814 (class 0 OID 0)
+-- Dependencies: 1505
+-- Name: tbl_users_services_user_service_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE tbl_users_services_user_service_id_seq OWNED BY tbl_users_services.user_service_id;
+
+
+--
+-- TOC entry 1501 (class 1259 OID 22805)
+-- Dependencies: 1502 3
+-- Name: tbl_users_user_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE tbl_users_user_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MAXVALUE
+    NO MINVALUE
+    CACHE 1;
+
+
+--
+-- TOC entry 1815 (class 0 OID 0)
+-- Dependencies: 1501
+-- Name: tbl_users_user_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE tbl_users_user_id_seq OWNED BY tbl_users.user_id;
+
+
+--
+-- TOC entry 1792 (class 2604 OID 26998)
+-- Dependencies: 1507 1508 1508
+-- Name: request_id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE tbl_requests ALTER COLUMN request_id SET DEFAULT nextval('tbl_requests_request_id_seq'::regclass);
+
+
+--
+-- TOC entry 1788 (class 2604 OID 26964)
+-- Dependencies: 1504 1503 1504
+-- Name: service_id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE tbl_services ALTER COLUMN service_id SET DEFAULT nextval('tbl_services_service_id_seq'::regclass);
+
+
+--
+-- TOC entry 1786 (class 2604 OID 22810)
+-- Dependencies: 1501 1502 1502
+-- Name: user_id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE tbl_users ALTER COLUMN user_id SET DEFAULT nextval('tbl_users_user_id_seq'::regclass);
+
+
+--
+-- TOC entry 1790 (class 2604 OID 26973)
+-- Dependencies: 1505 1506 1506
+-- Name: user_service_id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE tbl_users_services ALTER COLUMN user_service_id SET DEFAULT nextval('tbl_users_services_user_service_id_seq'::regclass);
+
+
+--
+-- TOC entry 1803 (class 2606 OID 27004)
+-- Dependencies: 1508 1508
+-- Name: tbl_requests_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY tbl_requests
+    ADD CONSTRAINT tbl_requests_pkey PRIMARY KEY (request_id);
+
+
+--
+-- TOC entry 1799 (class 2606 OID 26967)
+-- Dependencies: 1504 1504
+-- Name: tbl_services_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY tbl_services
+    ADD CONSTRAINT tbl_services_pkey PRIMARY KEY (service_id);
+
+
+--
+-- TOC entry 1795 (class 2606 OID 22812)
+-- Dependencies: 1502 1502
+-- Name: tbl_users_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY tbl_users
+    ADD CONSTRAINT tbl_users_pkey PRIMARY KEY (user_id);
+
+
+--
+-- TOC entry 1801 (class 2606 OID 26976)
+-- Dependencies: 1506 1506
+-- Name: tbl_users_services_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY tbl_users_services
+    ADD CONSTRAINT tbl_users_services_pkey PRIMARY KEY (user_service_id);
+
+
+--
+-- TOC entry 1797 (class 2606 OID 22814)
+-- Dependencies: 1502 1502
+-- Name: tbl_users_user_krb_name_key; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY tbl_users
+    ADD CONSTRAINT tbl_users_user_krb_name_key UNIQUE (user_krb_name);
+
+
+--
+-- TOC entry 1806 (class 2606 OID 27005)
+-- Dependencies: 1798 1508 1504
+-- Name: tbl_requests_service_fk_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY tbl_requests
+    ADD CONSTRAINT tbl_requests_service_fk_fkey FOREIGN KEY (service_fk) REFERENCES tbl_services(service_id);
+
+
+--
+-- TOC entry 1807 (class 2606 OID 27010)
+-- Dependencies: 1794 1502 1508
+-- Name: tbl_requests_user_fk_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY tbl_requests
+    ADD CONSTRAINT tbl_requests_user_fk_fkey FOREIGN KEY (user_fk) REFERENCES tbl_users(user_id);
+
+
+--
+-- TOC entry 1805 (class 2606 OID 26982)
+-- Dependencies: 1506 1798 1504
+-- Name: tbl_users_services_service_fk_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY tbl_users_services
+    ADD CONSTRAINT tbl_users_services_service_fk_fkey FOREIGN KEY (service_fk) REFERENCES tbl_services(service_id);
+
+
+--
+-- TOC entry 1804 (class 2606 OID 26977)
+-- Dependencies: 1506 1794 1502
+-- Name: tbl_users_services_user_fk_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY tbl_users_services
+    ADD CONSTRAINT tbl_users_services_user_fk_fkey FOREIGN KEY (user_fk) REFERENCES tbl_users(user_id);
+
+
+-- Completed on 2011-06-27 17:22:36 CST
+
+--
+-- PostgreSQL database dump complete
+--
+

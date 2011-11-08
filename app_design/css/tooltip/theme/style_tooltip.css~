@@ -1,0 +1,21 @@
+	
+/*-----------------------------------------------------------------------------------------------*/
+/*                                         TOOLTIP STYLES                                        */
+/*-----------------------------------------------------------------------------------------------*/
+
+.tip {
+	width: 212px;
+	padding-top: 37px;
+	overflow: hidden;
+	display: none;
+	position: absolute;
+	z-index: 500;
+	background: transparent url(images/tipTop.png) no-repeat top;
+	font-size:10px;
+	font-weight:bold;
+	text-align:center;
+	color:#111111;
+	}
+	
+.tipMid {background: transparent url(images/tipMid.png) repeat-y; padding: 0 25px 15px 15px;}
+.tipBtm {background: transparent url(images/tipBtm.png) no-repeat bottom; height: 18px;}

@@ -1,0 +1,34 @@
+http://www.humbug.in/docs/ubuntu-server-guide-es-10.04/kerberos.html
+
+http://web.mit.edu/kerberos/www/krb5-1.2/krb5-1.2.8/doc/admin_toc.html
+
+  krb5-devel ubuntu
+sudo apt-get install krb5-config
+yum install krb5-devel krb5-libs 
+
+ ./configure --with-krb5=/usr/local
+
+ln -s /usr/lib64 /usr/kerberos/lib
+
+
+_________________________
+
+http://craftyman.net/utilizando-twitter-oauth-con-php/
+
+
+PHP:
+
+http://julmis.julmajanne.com/index.php/LAMP+on+Debian
+http://technosophos.com/content/building-php-source-ubuntu
+http://log.hnb.cn/index.php/archives/110.html
+http://www.ubuntu-es.org/node/55066
+http://www.robo47.net/text/6-PHP-Configure-und-Compile-Fehler
+http://phpconfigure.com/tag/ubuntu/
+http://www.root0.net/php/index.html
+
+
+PECL>
+http://pecl.php.net/bugs/bug.php?id=15196
+http://mbechler.eenterphace.org/blog/index.php?/archives/11-php_krb5-rc2.html
+http://www.mkfoster.com/2009/01/04/how-to-install-a-php-pecl-extensionmodule-on-ubuntu/
+http://ubuntuforums.org/showthread.php?t=722373

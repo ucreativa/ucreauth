@@ -1,0 +1,38 @@
+﻿<?php
+
+   /* Archivo que contiene las acciones del formulario
+   de Usuarios (ADD,EDIT,DELETE,SEARCH) */
+   
+   require_once($_SERVER["DOCUMENT_ROOT"] . "/ucreauth/global.php");
+   require_once( __CLS_PATH . "cls_user.php");
+   require_once( __CLS_PATH . "cls_kerberos.php");  
+   
+   if (isset($_POST['btn_add'])){
+   	
+      $userdata=new cls_User();
+      $kadmin=new cls_Kerberos(); 
+           
+      $userinfo=array();
+      $userinfo[0]=$_POST['txt_user'];
+      $userinfo[6]=$_POST['txt_pssw'];
+      
+      /*
+      if($_POST['txt_photo']==''){
+      	$_POST['txt_photo']="default.jpg";
+      }
+      
+      $userinfo[0]=$_POST['txt_user'];
+      $userinfo[1]=$_POST['txt_photo'];
+      $userinfo[2]=$_POST['txt_email'];
+      $userinfo[3]=$_POST['txt_ident'];
+      $userinfo[4]=$_POST['txt_info'];
+      $userinfo[5]=$_POST['cmb_groups']; 	
+   	
+   	$userdata->insert_Userdata($userinfo);*/
+      $kadmin->krb5_add_user($userinfo[0],$userinfo[6],10000);
+   	
+   }else{
+   	header("Location: index.php");
+   }
+	
+?>

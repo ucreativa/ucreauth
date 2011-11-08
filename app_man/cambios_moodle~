@@ -1,0 +1,40 @@
+>>>>>>>>> moodle/login/index.php
+
+línea O;
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.6.1/jquery.min.js" type="text/javascript"></script>
+
+<?php
+
+echo "<script> $(document).ready(function(){ $('#loginbtn').click(); $('.region-content').css('display','none');$('#page-footer').css('display','none');});</script>";
+
+
+
+
+>>>>>>>>>>> moodle/logout/index.php
+
+linea final;
+
+header("Location:" . __TPT_HOST_PATH . "tpt_control_panel.php");
+
+//redirect($redirect);
+
+>>>>>>>>>>> moodle/index.php
+
+posible añadir:
+línea 0;
+ 	 //include_once($_SERVER["DOCUMENT_ROOT"] . "/ucreauth/security.php");
+    require_once($_SERVER["DOCUMENT_ROOT"] . "/ucreauth/global.php");
+
+>>>>>>>>>>> moodle/lib/moodlelib.php
+
+líneas: 3670-3671
+
+    //$validated = false;
+    $validated = true;
+    
+
+    >>>> posible :: moodle/lib/sessionlib 
+linea 420
+
+

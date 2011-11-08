@@ -1,0 +1,78 @@
+﻿<?php
+    require_once($_SERVER["DOCUMENT_ROOT"] . "/ucreauth/global.php");
+    require_once(__CLS_PATH . "cls_html.php");
+?>
+
+<html>
+ <head>
+	   <?php
+	       echo cls_HTML::html_js_header("//ajax.googleapis.com/ajax/libs/jquery/1.6.1/jquery.min.js");
+	       echo cls_HTML::html_js_header(__JS_PATH . "jquery-ui-1.8.6.custom.min.js");
+	       echo cls_HTML::html_js_header(__JS_PATH . "functions.js");
+	       echo cls_HTML::html_css_header(__CSS_PATH . "style.css","screen");
+	   ?>
+	 <title>UCREAUTH v1.0</title>   
+ </head>
+
+  <body>
+  
+	<div class="general_form_page">
+		<div id="userpage">
+		    <?php echo cls_HTML::html_form_tag("frm_user", "../forms/frm_user.php","","post"); ?>
+		    
+		    <fieldset class="groupbox"> <legend>USUARIOS</legend>
+			    <div class="block_form">
+				    <?php echo cls_HTML::html_label_tag("Nombre de Usuario:"); ?>
+				    <br />
+				    <?php echo cls_HTML::html_input_text("txt_user","txt_user","text",64,"",0,"","","required"); ?>
+				    <br /><br />
+				    <?php echo cls_HTML::html_label_tag("Password:"); ?>
+				    <br />
+				    <?php echo cls_HTML::html_input_password("txt_pssw","txt_pssw","text",64,"",0,"","","required"); ?>
+				    <br /><br />
+				    <?php echo cls_HTML::html_label_tag("Confirme el Password:"); ?>
+				    <br />
+				    <?php echo cls_HTML::html_input_password("txt_pssw","txt_pssw","text",64,"",0,"","","required"); ?>
+				    <br /><br />
+				    <?php echo cls_HTML::html_label_tag("Cédula:"); ?>
+				    <br />
+		          <?php echo cls_HTML::html_input_text("txt_ident","txt_ident","text",9,"",0,"","onkeypress='return validarOnlyNum(event);'","required"); ?>
+				    <br /><br />
+				    <?php echo cls_HTML::html_label_tag("E-mail:"); ?>
+				    <br />
+		          <?php echo cls_HTML::html_input_email("txt_email", "txt_email", "text", 128, "", 0, "", "","required"); ?>
+		          <br /><br />
+				 </div>
+			    <div class="block_form">
+			       <?php echo cls_HTML::html_label_tag("Foto:"); ?>
+				    <br />
+		          <?php echo cls_HTML::html_img_tag(__RSC_PHO_HOST_PATH . "unknow.jpg" , "img_userphoto", "img", "FOTO", "height=70"); ?>
+		          <br />   
+			       <?php echo cls_HTML::html_input_file("txt_photo","image/png,image/jpg", "txt_photo", "text", 128, "", 0, "", ""); ?>
+		          <br /><br />
+				    <?php echo cls_HTML::html_label_tag("Descripción breve:"); ?>
+				    <br />
+				    <?php echo cls_HTML::html_textarea(4,30,"txt_info","txt_info","text","",0,"","",""); ?>
+				    <br /><br />
+				    <?php echo cls_HTML::html_label_tag("Grupo de acceso:"); ?>
+				    <br />
+				    <?php 
+						 $user_groups = array('ADMINISTRADOR' => 1,'USER' => 2,'USER_LOW' => 3);	//*********** FALTA CARGAR DE BD		    
+					    echo cls_HTML::html_select("cmb_groups", $user_groups, "cmb_groups", "combo", 0, "", "");
+					 ?>
+				    <br /><br />
+				 </div>
+			 </fieldset> 
+	 		 <div id="action_buttons_form">
+			    <?php echo cls_HTML::html_input_button("submit","btn_add","btn_add","button","Agregar",0,"",""); ?>
+			    <?php echo cls_HTML::html_input_button("submit","btn_save","btn_save","button","Guardar",0,"",""); ?>
+			    <?php echo cls_HTML::html_input_button("submit","btn_cancel","btn_cancel","button","Cancelar",0,"",""); ?>
+			    <?php echo cls_HTML::html_input_button("submit","btn_search","btn_search","button","Buscar",0,"",""); ?>
+			    <br /><br />
+		   </div>
+		    <?php echo cls_HTML::html_form_end(); ?>
+		</div>
+	</div>
+	
+  </body>
+ </html>

@@ -1,0 +1,5 @@
+stop/start Kereberos services:
+
+/etc/init.d/krb5-kdc stop
+/etc/init.d/krb5-admin-server stop
+

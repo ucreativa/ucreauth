@@ -1,0 +1,35 @@
+﻿<?php
+    require_once($_SERVER["DOCUMENT_ROOT"] . "/ucreauth/global.php");
+    require_once(__CLS_PATH . "cls_html.php");
+?>
+
+<html>
+ <head>
+	   <?php
+	       echo cls_HTML::html_js_header(__JS_PATH . "jquery-1.6.2.min.js");
+	   ?>
+	 <title></title>
+ </head>
+  <body>
+	<div class="general_form_page">
+		<div id="userpage">
+		    <?php echo cls_HTML::html_form_tag("frm_usergroup", "https://www.google.com/accounts/ServiceLoginBoxAuth?Email=ewrewr","","post"); ?>
+			    <div class="block_form">
+				    <?php echo cls_HTML::html_label_tag("Usuario:"); ?>
+				    <br />
+				    <?php echo cls_HTML::html_input_text("Email","Email","text",32,"","","Usuario",1,"","","required"); ?>
+					 <br/><br/>
+					 <?php echo cls_HTML::html_label_tag("Password:"); ?>
+				    <br />
+				    <?php echo cls_HTML::html_input_password("Passwd","Passwd","text",32,"","","Password",2,"","required"); ?>
+				 </div>
+				 <br />
+	 		 <div id="action_buttons_form">
+			    <?php echo cls_HTML::html_input_button("submit","btn_login","btn_login","button","Guardar",3,"",""); ?>
+			    <br /><br />
+		    </div>
+		    <?php echo cls_HTML::html_form_end(); ?>
+		</div>
+	</div>
+  </body>
+ </html>

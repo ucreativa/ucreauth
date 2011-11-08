@@ -1,0 +1,20 @@
+﻿<?php
+
+ class mod_Mediawiki {
+   
+   	var $host;
+	   var $dbname;
+	   var $port;
+	   var $user;
+	   var $password;
+	   var $str_conn;
+	   var $connection;
+	   
+    	function __construct(){}
+	
+	   public function get_() {
+   	}
+ 	   
+ }
+
+?>
