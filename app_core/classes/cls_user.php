@@ -35,6 +35,17 @@
 			return $this->data_provide->sql_get_rows($result);
       } 
       
+      public function get_user_status($user_krb_name){
+
+			$result=$this->data_provide->sql_execute("SELECT tbl_users.user_status
+																	FROM tbl_users
+																	WHERE tbl_users.user_krb_name = '" . $user_krb_name . "'");
+																	
+			$status=$this->data_provide->sql_get_rows($result);                     		                          
+			return $status[0][0];
+			
+      } 
+      
       public function insert_userdata($userdata = array()){ 
       
 	      $success=false; 

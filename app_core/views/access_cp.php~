@@ -1,6 +1,6 @@
 ﻿<?php
     include_once($_SERVER["DOCUMENT_ROOT"] . "/ucreauth/security.php");
-    require_once($_SERVER["DOCUMENT_ROOT"] . "/ucreauth/lock.php");
+    //require_once($_SERVER["DOCUMENT_ROOT"] . "/ucreauth/lock.php");
     require_once(__CLS_PATH . "cls_html.php");
     require_once(__CLS_PATH . "cls_kerberos.php");
     require_once(__CLS_PATH . "cls_user.php");
@@ -65,7 +65,7 @@
 						  	  }
 						  	  
 						  	    echo "<div title='".$value[3]."'" . $external_link . " >" 
-						  	          . cls_HTML::html_img_tag(__RSC_IMG_HOST_PATH . $value[2], $value[1], "img_link" ,$value[1], "") . "</div>";
+						  	          . cls_HTML::html_img_tag(__RSC_IMG_HOST_PATH . $value[2], $value[1], "img_link" ,$value[1], "") . $GMcount . "</div>";
 						  }
 					   }
 				 ?>

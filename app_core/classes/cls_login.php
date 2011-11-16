@@ -29,8 +29,10 @@
          $userdata=$this->usercore->get_userdata($user,-1);
          $lifetime=$userdata[0][12];
          // Verifica la conexion con kerberos y la conexion con postgre
+         // Y además si el usuario está activo
 		 	if($this->auth_db->is_connect()){
-		 		if($this->auth_krb5->krb5_connect($user, $pssw, $lifetime)){
+		 		if(($this->auth_krb5->krb5_connect($user, $pssw, $lifetime)) 
+		 		   && ($this->usercore->get_user_status($user)=="A")){
 		 		   $this->my_ticket=$this->auth_krb5->get_ticket();
 		 		   $this->conn_status=true;
 		 		   $this->username=$user;	

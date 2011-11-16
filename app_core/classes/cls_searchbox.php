@@ -23,7 +23,8 @@
 	        															 tbl_users.user_type,
 	        															 tbl_users.user_group_fk
 	        															 FROM tbl_users
-	        															 WHERE tbl_users.user_krb_name LIKE '" . $param . "%'");
+	        															 WHERE tbl_users.user_krb_name LIKE '" . $param . "%'
+	        															 ORDER BY tbl_users.user_krb_name ASC");
 
 					return $this->data_provide->sql_get_rows($result);
 			}

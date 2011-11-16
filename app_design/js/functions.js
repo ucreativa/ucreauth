@@ -60,7 +60,7 @@ function checkVersion() {
         if (ver <= 8.0){
             msg = "Usted debe actualizar su navegador por razones críticas de seguridad."
             alert(msg);
-            location.href = "http://www.google.com/chrome?hl=es";
+            location.href = "http://www.mozilla.org/es-ES/firefox/new/";
         }
     }
 }

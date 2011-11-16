@@ -2,7 +2,7 @@
 
    require_once( __CLS_PATH . "cls_database.php");
 
-	class cls_Service { 
+	class cls_Userservice { 
 	
 	   private $data_provide;
 	 	 
@@ -10,14 +10,15 @@
 			$this->data_provide=new cls_Database();	   
 	   } 	
 	 
-	   public function get_services(){ 
+	   public function get_users_services($usr_id){ 
 	   
-			$result=$this->data_provide->sql_execute("SELECT tbl_services.user_service_id,
-																	tbl_services.service_name,
-																	tbl_services.service_fk,
-																	tbl_services.user_service_username,
-																	tbl_services.user_service_rol
-																	FROM tbl_services");
+			$result=$this->data_provide->sql_execute("SELECT tbl_users_services.user_service_id,
+																	tbl_users_services.user_fk,
+																	tbl_users_services.service_fk,
+																	tbl_users_services.user_service_username,
+																	tbl_users_services.user_service_rol
+																	FROM tbl_users_services
+																	WHERE tbl_users_services.user_fk = " . $usr_id);
 			                      		                          
 			return $this->data_provide->sql_get_rows($result);
       }

@@ -89,12 +89,6 @@
 				    <br /><br />
 				 </div>
 			    <div class="block_form">
-			       <?php echo cls_HTML::html_label_tag("Foto:"); ?>
-				    <br />
-		          <?php echo cls_HTML::html_img_tag(__RSC_PHO_HOST_PATH . "default.png" , "img_userphoto", "img_link", "FOTO", "height=70"); ?>
-		          <br />
-			       <?php echo cls_HTML::html_input_file("txt_photo","image/png,image/jpg", "txt_photo", "text", 128, "", 10, "", "onchange='valChangeImage(this)'"); ?>
-		          <br /><br />
 				    <?php echo cls_HTML::html_label_tag("Fecha de Nacimiento:"); ?>
 				    <br />
 		          <?php echo cls_HTML::html_select_date("combo", 6, "", ""); ?>
@@ -106,13 +100,16 @@
 				    <?php echo cls_HTML::html_label_tag("Género:"); ?>
 				    <br />
 		          <?php echo cls_HTML::html_select("cmb_gender", array('M'=>'Masculino', 'F'=>'Femenino'), "cmb_gender", "combo", 11, "", ""); ?>
-		          <br />
-				 </div>
-				 <div class="block_form">
-				   <?php echo cls_HTML::html_label_tag("E-mail:"); ?>
+		          <br /><br />
+		          <?php echo cls_HTML::html_label_tag("E-mail:"); ?>
 				    <br />
 		          <?php echo cls_HTML::html_input_email("txt_email", "txt_email", "text", "E-mail alternativo", 128,"",12, "", "","required"); ?>
 		          <br /><br />
+		          <?php echo cls_HTML::html_label_tag("Tipo:"); ?>
+				    <br />
+		          <?php echo cls_HTML::html_select("cmb_usertype", array('E'=>'Estudiante', 'P'=>'Profesor', 'A'=>'Administrativo'), "cmb_usertype", "combo", 15, "", ""); ?>
+				 </div>
+				 <div class="block_form">
 				 	 <?php echo cls_HTML::html_label_tag("Descripción breve:"); ?>
 				    <br />
 				    <?php echo cls_HTML::html_textarea(2,30,"txt_info","txt_info","textarea","",13,"","",""); ?>
@@ -120,10 +117,6 @@
 				    <?php echo cls_HTML::html_label_tag("Tiempo de sesión (En segundos):"); ?>
 				    <br />
 		          <?php echo cls_HTML::html_input_text("txt_lifetime","txt_lifetime","text",5,"","3600","Tiempo de la sesión",14,"","onkeypress='return validarOnlyNum(event);'","required"); ?>
-				    <br /><br />
-				    <?php echo cls_HTML::html_label_tag("Tipo:"); ?>
-				    <br />
-		          <?php echo cls_HTML::html_select("cmb_usertype", array('E'=>'Estudiante', 'P'=>'Profesor', 'A'=>'Administrativo'), "cmb_usertype", "combo", 15, "", ""); ?>
 				    <br /><br />
 				    <?php echo cls_HTML::html_label_tag("Estado:"); ?>
 				    <br />

@@ -23,7 +23,8 @@
 	        															 tbl_users.user_type,
 	        															 tbl_users.user_group_fk
 	        															 FROM tbl_users
-	        															 WHERE tbl_users.user_krb_name LIKE '" . $param . "%'");
+	        															 WHERE tbl_users.user_krb_name LIKE '" . $param . "%'
+	        															 ORDER BY");
 
 					return $this->data_provide->sql_get_rows($result);
 			}
@@ -33,7 +34,7 @@
 																			tbl_users_groups.user_group_name,
 																			tbl_users_groups.user_group_access
 																			FROM tbl_users_groups
-	        															   WHERE tbl_users.user_krb_name LIKE '" . $param . "%'");
+	        															   WHERE tbl_users_groups.user_group_name LIKE '" . $param . "%'");
 
 					return $this->data_provide->sql_get_rows($result);
 			}

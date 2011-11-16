@@ -5,7 +5,12 @@
     $ccache_clone = new KRB5CCache();
     $dir_ccache='app_core/resources/temps/my.ccache_' . $_SESSION['USERNAME'];
 
-    try{
+    try{    	 
+    	
+    	 if(!(isset($_SESSION["USERNAME"]))){
+    	 	cls_Message::show_message("","msg_box_user","expired_session");
+    	 }
+    	  
 	    if(file_exists($dir_ccache))
 	    {
 	        $ccache_clone->open($dir_ccache);
@@ -26,16 +31,17 @@
 	          unlink($dir_ccache);
 	      }
 	   
-	      session_name("UCREAUTH");
-	      session_destroy();
-
-          //Si no cerramos desde el la opción SALIR
-          if($_SESSION['LOGOUT']!='YES'){
+         //Si no cerramos desde el la opción SALIR
+         if($_SESSION['LOGOUT']!='YES'){
              //Mostramos mensaje de sesión expirada
-		     cls_Message::show_message("","msg_box_user","expired_session");
-          }else{
+            session_name("UCREAUTH");
+	         session_destroy();
+		      cls_Message::show_message("","msg_box_user","expired_session");
+         }else{
+         	session_name("UCREAUTH");
+	         session_destroy();
             header('Location: index.php');
-          }
+         }
 
 	   }
    }catch(Exception $e){

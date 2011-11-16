@@ -1,6 +1,6 @@
 ﻿<?php
     include_once($_SERVER["DOCUMENT_ROOT"] . "/ucreauth/security.php");
-    require_once($_SERVER["DOCUMENT_ROOT"] . "/ucreauth/lock.php");
+    //require_once($_SERVER["DOCUMENT_ROOT"] . "/ucreauth/lock.php");
     require_once(__CLS_PATH . "cls_html.php");
     require_once(__CLS_PATH . "cls_kerberos.php");
     require_once(__CLS_PATH . "cls_user.php");
@@ -81,10 +81,6 @@
      <?
        //Si requiere cambio de contraseña mostramos el formulario correspondiente
        if($usr_data[0][15]=='1'){
-<<<<<<< HEAD
-         echo "<script type='text/javascript'>open_form('".__VWS_HOST_PATH."change_pssw.php?usr=".$_SESSION['USERNAME']."',300,200);</script>";  
-=======
          echo "<script type='text/javascript'>open_form('".__VWS_HOST_PATH."change_pssw.php?usr=".$_SESSION['USERNAME']."',310,210);</script>";  
->>>>>>> cbfa9a613a68f475aebbe0b2cd70a1d77a981008
        }     
      ?>

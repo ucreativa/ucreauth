@@ -7,14 +7,10 @@
     $ctr_Login=new ctr_Login();
 ?>
    <script type="text/javascript">$(document).ready(function(){$('#login').slideUp(0);});</script>
-<<<<<<< HEAD
-   <div class="menu_item" id="login_item" onclick="show_close_menu('login');"><p class="text_cpbar">Iniciar Sesión</p></div>
-=======
    <div class="menu_item" id="login_item" onclick="show_close_menu('login');"><p class="text_cpbar">Iniciar Sesión</p></div>
 
    <? //cls_Message::show_message("Servicio de autenticación suspendido temporalmente.","info",""); ?>
         
->>>>>>> cbfa9a613a68f475aebbe0b2cd70a1d77a981008
 	<div id="login">
 	
 	    <?php echo cls_HTML::html_form_tag("frm_login", "" ,"","post");	 ?>
