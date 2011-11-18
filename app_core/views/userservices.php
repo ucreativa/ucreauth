@@ -37,31 +37,35 @@
 			    <div class="block_form">
 				    <?php echo cls_HTML::html_input_hidden("txt_id",""); ?>
 				    <?php echo cls_HTML::html_label_tag("Usuario:"); ?>
-				    <br />
-				    <?php echo cls_HTML::html_input_text("txt_username","txt_username","text",32,"","","Nombre de Usuario",1,"","","required"); ?>
+				    <br /><br />
+				    <?php echo cls_HTML::html_input_text("txt_username","txt_username","",32,"","","Nombre de Usuario",1,"","","required"); ?>
 				    <br /><br /><br /><br />
 				    <fieldset class="groupbox"> <legend>SERVICIOS</legend>
 				      <div class="block_form">
 				      <? 
 					      $row=$services->get_services();
 					      $i=0;
-					      foreach($row as $value){					      	
+					     // echo "<table>";
+					     	
+					      foreach($row as $value){				      	
 					      	?>
-						      <?php echo cls_HTML::html_check("chk_". $i, "check", "", $i+3, "", "");?>
+						      <?php echo cls_HTML::html_check("chk_". $value[0], "check", "", $i+3, "", "");?>
 						      <?php echo cls_HTML::html_label_tag($value[1]); ?>
-						      <?php echo cls_HTML::html_input_text("txt_userservname_". $i,"txt_userservname". $i,"text",32,"","","Nombre de Usuario",$i+4,"","","required"); ?>
+						      <?php //echo cls_HTML::html_input_text("txt_uservname_". $i,"txt_uservname_". $i,"text",32,"","","Nombre de Usuario",$i+4,"","",""); ?>
 						      <br />
 					   <? $i++;
+					       
 					      }
 				      ?>
+				      <?php echo cls_HTML::html_input_hidden("txt_totalservs",$i); ?>
 				      </div>
 				    </fieldset> 
 				 </div>
 			 </fieldset> 
 	 		 <div id="action_buttons_form">
-			    <?php echo cls_HTML::html_input_button("submit","btn_new","btn_new","button","Nuevo",11,"","onclick=\"$('#frm_usergroup').attr('novalidate','novalidate');\""); ?>
+	 		    <?php echo cls_HTML::html_input_button("submit","btn_new","btn_new","button","Cancelar",11,"","onclick=\"$('#frm_userservices').attr('novalidate','novalidate');\""); ?>
 			    <?php echo cls_HTML::html_input_button("submit","btn_save","btn_save","button","Guardar",12,"",""); ?>
-			    <?php echo cls_HTML::html_input_button("submit","btn_search","btn_search","button","Buscar",13,"","onclick=\"$('#frm_usergroup').attr('novalidate','novalidate');\""); ?>
+			    <?php echo cls_HTML::html_input_button("submit","btn_search","btn_search","button","Buscar",13,"","onclick=\"$('#frm_userservices').attr('novalidate','novalidate');\""); ?>
 			    <br /><br />
 		    </div>
 		    <?php echo cls_HTML::html_form_end(); ?>
@@ -85,18 +89,39 @@
 		   
 		   /*Procedemos a llenar el formulario con los datos traídos del formulario
 		    de búsqueda */
-		    
+
 		  	if(isset($_GET['edit']) && isset($_GET['id'])){
-		  		
+
 		  		if($_GET['edit']=="1"){
+		  			
 		  			$userservice_data=$ctr_Userservice->get_userservicedata($_GET['id']);
+		  			
+		  			//Si el usuario no tiene servicios asignados solo obtenemos su id y nombre
+		  			
+		  			$id_user="";
+		  			$name_user="";
+		  			
+					if(count($userservice_data[0])!=2){
+			  			 foreach($userservice_data as $value){
+			  			  	  echo "<script>
+			  			         $('#chk_". $value[2] ."').attr('checked','cheked');
+			  			     </script>";
+			  			 }
+			  			 $id_user=$userservice_data[0][1];
+			  			 $name_user=$userservice_data[0][5];
+		  			}else{
+		  				 $id_user=$userservice_data[0][0];
+			  			 $name_user=$userservice_data[0][1];
+		  			}
 
 		  			echo "<script>
-		  			         $('#txt_id').attr('value','" . $usergroup_data[0][0] . "');
-		  			         $('#cmb_groups').attr('value','" . $usergroup_data[0][1] . "');
-		  			         $('#txt_user').attr('value','" . $usergroup_data[0][2] . "');
-								$('#cmb_status').attr('value','" . $usergroup_data[0][3] . "');
+		  			         $('#txt_id').attr('value','" . $id_user . "');
+		  			         $('#txt_username').attr('value','      " . $name_user . "');
 								$('#btn_save').css('background','#4185F3');
+								$('#txt_username').css('border','none');
+								$('#txt_username').css('font-weight','bold');
+								$('#txt_username').css('font-size','16px');
+								$('#txt_username').css('background','no-repeat left url(" . __RSC_PHO_HOST_PATH . "thumbs/default.png)');
 		  			     </script>";
 		  		}
 		  		

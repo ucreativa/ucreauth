@@ -14,7 +14,7 @@
 
 	   public function show_data($form, $param){ 
 	   
-	      if ($form=="frm_user"){
+	      if ($form=="frm_user" || $form=="frm_userservices"){
 					$result=$this->data_provide->sql_execute("SELECT tbl_users.user_id,
 					                                        tbl_users.user_photo,  
 	        														    tbl_users.user_krb_name,

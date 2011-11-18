@@ -20,7 +20,7 @@
 	   if(isset($_POST['btn_logout'])){
 	     $ctr_Login->btn_logout_click();
 	     $_SESSION['AUTH']="NO";
-         $_SESSION['LOGOUT']="YES";
+        $_SESSION['LOGOUT']="YES";
         include($_SERVER["DOCUMENT_ROOT"] . "/ucreauth/security.php");
 	   }
  ?>

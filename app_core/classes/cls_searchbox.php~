@@ -14,7 +14,7 @@
 
 	   public function show_data($form, $param){ 
 	   
-	      if ($form=="frm_user"){
+	      if ($form=="frm_user" || ){
 					$result=$this->data_provide->sql_execute("SELECT tbl_users.user_id,
 					                                        tbl_users.user_photo,  
 	        														    tbl_users.user_krb_name,
@@ -24,7 +24,7 @@
 	        															 tbl_users.user_group_fk
 	        															 FROM tbl_users
 	        															 WHERE tbl_users.user_krb_name LIKE '" . $param . "%'
-	        															 ORDER BY");
+	        															 ORDER BY tbl_users.user_krb_name ASC");
 
 					return $this->data_provide->sql_get_rows($result);
 			}

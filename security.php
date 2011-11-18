@@ -2,14 +2,14 @@
     require_once($_SERVER["DOCUMENT_ROOT"] . "/ucreauth/global.php");
     require_once( __CLS_PATH . "cls_kerberos.php");
 
-    $ccache_clone = new KRB5CCache();
-    $dir_ccache='app_core/resources/temps/my.ccache_' . $_SESSION['USERNAME'];
-
     try{    	 
-    	
+
     	 if(!(isset($_SESSION["USERNAME"]))){
     	 	cls_Message::show_message("","msg_box_user","expired_session");
     	 }
+    	 
+    	 $ccache_clone = new KRB5CCache();
+       $dir_ccache='app_core/resources/temps/my.ccache_' . $_SESSION['USERNAME'];
     	  
 	    if(file_exists($dir_ccache))
 	    {
@@ -29,6 +29,7 @@
 	      if(file_exists($dir_ccache))
 	      {
 	          unlink($dir_ccache);
+	          cls_Message::show_message("","msg_box_user","expired_session");
 	      }
 	   
          //Si no cerramos desde el la opción SALIR
