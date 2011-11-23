@@ -20,6 +20,7 @@
 																	tbl_users.user_krb_name
 																	FROM tbl_users_services, tbl_users
 																	WHERE tbl_users.user_id = tbl_users_services.user_fk
+																	AND tbl_users_services.user_service_status = 'A'
 																	AND tbl_users_services.user_fk = " . $usr_id);
 	      
 	      $return=$this->data_provide->sql_get_rows($result);
@@ -39,14 +40,35 @@
       public function insert_user_service($userservicedata = array(),$selected_services = array()){ 
       
 	      $success=false; 
-	      $result=$this->data_provide->sql_execute("DELETE FROM tbl_users_services 
+	      
+	      //Actualizamos los servicios existentes del usuario a estado inactivo
+	      
+	      $result=$this->data_provide->sql_execute("UPDATE tbl_users_services
+	      														SET user_service_status = 'I' 
 																   WHERE tbl_users_services.user_fk = " . $userservicedata[0]);
+			
+			//Activamos los servicios seleccionados, si no se le ha asignado aún al usuario
+			//procedemos a insertarlo en la BD
 																   
-			for($i=0;$i<count($selected_services);$i++){													
-				$result=$this->data_provide->sql_execute("INSERT INTO tbl_users_services 
-																	  (user_fk,
-																		service_fk)
-																		VALUES (" . $userservicedata[0] . "," . $selected_services[$i] . ")");
+			for($i=0;$i<count($selected_services);$i++){	
+			   $exists_serv=$this->data_provide->sql_execute("SELECT service_fk FROM tbl_users_services 
+																			  WHERE tbl_users_services.user_fk = " . $userservicedata[0]
+																         . "AND tbl_users_services.service_fk = " . $selected_services[$i]);
+																         
+		      $exists_serv_array=$this->data_provide->sql_get_rows($exists_serv);
+		           
+		      
+			   if(count($exists_serv_array)==0){												
+					$result=$this->data_provide->sql_execute("INSERT INTO tbl_users_services 
+																		  (user_fk,
+																			service_fk)
+																			VALUES (" . $userservicedata[0] . "," . $selected_services[$i] . ")");
+				}else{
+				   $result=$this->data_provide->sql_execute("UPDATE tbl_users_services
+	      														      SET user_service_status = 'A' 
+																         WHERE tbl_users_services.user_fk = " . $userservicedata[0]
+																         . "AND tbl_users_services.service_fk = " . $selected_services[$i]);
+				}
 			}
 			
 			if($result){

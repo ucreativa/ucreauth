@@ -104,5 +104,6 @@ ARCHIVO DE CONFIGURACIÓN GLOBAL.
   $array_global_settings['sys_name']="UCREAUTH";
   $array_global_settings['sys_version']="v1.0";
   $array_global_settings['realm_server']="@ucreativa.com";
+  
 
 ?>

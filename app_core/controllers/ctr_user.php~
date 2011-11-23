@@ -75,6 +75,35 @@
 		      }
 		   } 
 	   }
+	   
+	   function btn_saveprofile_click() 
+	   {
+	   	         
+	      $userinfo=array();
+	      $id_user=$_POST['txt_id'];
+	      
+	      $userinfo[1]=$_POST['txt_user'];
+	      $userinfo[2]=$_POST['txt_ident'];
+	      $userinfo[3]=$_POST['txt_email'];
+	      $userinfo[4]=$_POST['txt_phone'];
+	      $userinfo[6]=$_POST['cmb_gender'];
+	      $userinfo[7]=$_POST['cmb_year'] . '-' . $_POST['cmb_month'] . '-' . $_POST['cmb_day'];
+	      $userinfo[9]=date('Y-m-d');	
+	      $userinfo[10]=$_POST['txt_info'];
+	      $userinfo[12]=$_POST['txt_realname'];
+	      $userinfo[14]=$_POST['txt_pssw'];
+	      $userinfo[15]=$_POST['txt_chpassw'];
+	   	
+		   	if(($this->userdata->update_userprofile($userinfo,$id_user))){
+		   		 //si la opcion de cambio de password está seleccionada se procede a el cambio
+		   		 if($userinfo[15]=='KRB5_CHPSSW'){
+		   		 	$this->kadmin->krb5_edit_userpssw($userinfo[1],$userinfo[14]);
+		   		 }
+		   		   
+		      	 cls_Message::show_message("","success","success_update");
+                //Limpiamos las variables para inicializar la página con _NEW
+		      }
+		   } 
 
       function btn_new_click() {
    		//Limpiamos las variables para inicializar la página con _NEW
@@ -83,10 +112,12 @@
 	   }
 	   
 	   function update_chpssw($username,$password) {
+	   	$success=false;
 			if($this->kadmin->krb5_edit_userpssw($username,$password)==true 
 			   && $this->userdata->update_chpssw($username)==true){
-			     return true;	
+			     $success=true;	
 			}
+			return $success;
 	   }
 	   
 	   function btn_delete_click() {

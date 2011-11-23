@@ -85,9 +85,9 @@ function validate_pssw() {
 	var minLength = 6; // Minimum length
 	var pw1 = $("#txt_pssw").val();
 	var pw2 = $("#txt_cpssw").val();
-	
+
 	if(/^\d{2,4}$/.test(pw1)) {
-	  alert("El password debe tener de 2 a 4 digitos.");
+	  alert("La contraseña debe tener de 2 a 4 digitos.");
 	  return false;
 	}
 
@@ -102,6 +102,7 @@ function validate_pssw() {
 		alert('Su contraseña debe ser de al menos ' + minLength + ' caracteres. Intenta de nuevo.');
 		return false;
 	}
+
 	// check for spaces
 	if (pw1.indexOf(invalid) > -1) {
 		alert("Espacios no son permitidos.");

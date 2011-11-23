@@ -1,0 +1,86 @@
+Archvos modificados:
++mediawiki/index.php
++mediawiki/includes/specials/SpecialUserLogin.php
++mediawiki/includes/templates/UserLogin.php
++mediawiki/includes/User.php
++mediawiki/includes/OutputPage.php
+
+>>>>>>>>>> mediawiki/index.php
+
+line 0
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.6.1/jquery.min.js" type="text/javascript"></script>
+
+
+>>>>>>>>>> mediawiki/includes/specials/SpecialUserLogin.php
+
+line 108-125
+
+	function execute() {
+		if ( !is_null( $this->mCookieCheck ) ) {
+			//$this->onCookieRedirectCheck( $this->mCookieCheck );
+			header("Location: index.php");
+			//return;
+		} else if( $this->mPosted ) {
+			if( $this->mCreateaccount ) {
+				return $this->addNewAccount();
+			} else if ( $this->mCreateaccountMail ) {
+				return $this->addNewAccountMailPassword();
+			} else if ( $this->mMailmypassword ) {
+				return $this->mailPassword();
+			} else if ( ( 'submitlogin' == $this->mAction ) || $this->mLoginattempt ) {
+				return $this->processLogin();
+			}
+		}
+		$this->mainLoginForm( '' );
+	}
+
+>>>>>>>>>> mediawiki/includes/templates/UserLogin.php
+
+line 0
+
+<?php $userwiki=$_GET['username']; ?>
+
+<script>
+ $(document).ready(function(){
+      $('body').css('display','none');
+		$('#wpName1').attr('value','<?php echo $userwiki; ?>');
+		$('#wpPassword1').attr('value','');
+		$('#wpLoginAttempt').click();
+  });
+</script>
+
+>>>>>>>>>> mediawiki/includes/User.php
+
+line 2812
+		if( !$this->isValidPassword( $password ) ) {
+			//return false;
+			return true;
+		}
+		
+linea 2508
+
+	function doLogout() {
+		$this->clearInstanceCache( 'defaults' );
+
+		$_SESSION['wsUserID'] = 0;
+
+		$this->clearCookie( 'UserID' );
+		$this->clearCookie( 'Token' );
+
+		# Remember when user logged out, to prevent seeing cached pages
+		$this->setCookie( 'LoggedOut', wfTimestampNow(), time() + 86400 );
+		header("Location: http://www.ucreativa.com/ucreasite");
+	}
+	
+	>>>>>>>>>> mediawiki/includes/OutputPage.php
+	Línea 40
+	var $mPreventClickjacking = false;
+	
+Línea 1359
+
+	public function preventClickjacking( $enable = true ) {
+		$this->mPreventClickjacking = false;
+	}
+
+

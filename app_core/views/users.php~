@@ -10,11 +10,9 @@
 	   <?php
 	       echo cls_HTML::html_js_header(__JS_PATH . "jquery-1.6.2.min.js");
 	       echo cls_HTML::html_js_header(__JS_PATH . "jquery-ui-1.8.6.custom.min.js");
-           echo cls_HTML::html_js_header(__JS_PATH . "jquery.betterTooltip.js");
 	       echo cls_HTML::html_js_header(__JS_PATH . "functions.js");
 	       echo cls_HTML::html_js_header(__JS_PATH . "dateselect/dateSelectBoxes.js");
            echo cls_HTML::html_css_header(__CSS_PATH . "style.css","screen");
-	       echo cls_HTML::html_css_header(__CSS_PATH . "tooltip/theme/style_tooltip.css","screen");
 	   ?>
 	 <title>UCREAUTH v1.0</title>
  </head>
@@ -30,7 +28,6 @@
 ?>
         <script>
             $(document).ready(function() {
-            	$('.text').betterTooltip({speed: 150, delay: 300});
                $().dateSelectBoxes($('#cmb_month'),$('#cmb_day'),$('#cmb_year'));
             });
 
@@ -105,6 +102,9 @@
 				    <br />
 		          <?php echo cls_HTML::html_input_email("txt_email", "txt_email", "text", "E-mail alternativo", 128,"",12, "", "","required"); ?>
 		          <br /><br />
+		          <?php echo cls_HTML::html_label_tag("Tipo:"); ?>
+				    <br />
+		          <?php echo cls_HTML::html_select("cmb_usertype", array('E'=>'Estudiante', 'P'=>'Profesor', 'A'=>'Administrativo'), "cmb_usertype", "combo", 15, "", ""); ?>
 				 </div>
 				 <div class="block_form">
 				 	 <?php echo cls_HTML::html_label_tag("Descripción breve:"); ?>

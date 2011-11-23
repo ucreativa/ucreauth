@@ -27,7 +27,8 @@
 																	tbl_users.user_lifetime,
 																	tbl_users.user_realname,
 																	tbl_users.user_type,
-																	tbl_users.user_chpssw
+																	tbl_users.user_chpssw,
+																	tbl_users.user_genpssw
 																	FROM tbl_users
 																	WHERE tbl_users.user_krb_name = '" . $user_krb_name . "'
 																	OR tbl_users.user_id = " . $id_user);
@@ -94,6 +95,26 @@
 																	user_lifetime = ".$userdata[11].",
 																	user_realname = '".$userdata[12]."',
 																	user_type = '".$userdata[13]."'
+																	WHERE tbl_users.user_id = " . $id_user);
+			if($result){
+				$success=true;
+			}
+			
+	      return $success;
+			                      		                          
+      }
+      
+      public function update_userprofile($userdata = array(),$id_user){ 
+	   
+	      $success=false; 
+			$result=$this->data_provide->sql_execute("UPDATE tbl_users SET
+																	user_ident = '".$userdata[2]."',
+																	user_email = '".$userdata[3]."',
+																	user_phone = '".$userdata[4]."',
+																	user_gen = '".$userdata[6]."',
+																	user_datebirth = '".$userdata[7]."',
+																	user_description = '".$userdata[10]."',
+																	user_realname = '".$userdata[12]."'
 																	WHERE tbl_users.user_id = " . $id_user);
 			if($result){
 				$success=true;

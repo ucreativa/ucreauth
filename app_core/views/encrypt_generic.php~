@@ -1,0 +1,29 @@
+﻿<?php
+    include_once($_SERVER["DOCUMENT_ROOT"] . "/ucreauth/global.php");
+
+    require_once(__CLS_PATH . "cls_encrypt.php");
+
+    //Declaramos el controlador de la vista actual el cual contiene las acciones a ejecutar
+
+    $encrypt=new cls_Encrypt();
+    
+    if ($_POST['encrypt']){
+      echo $encrypt->encrypt($_POST['txt_enc']);
+    }
+    
+    if ($_POST['decrypt']){
+      echo $encrypt->encrypt($_POST['txt_enc']);
+    }
+ 
+?>
+
+<html>
+<head><title>D/Encrypt v1.0</title></head>
+<body>
+	<form action="" method="post">
+	   <input type="text" value="" id="txt_enc" name="txt_enc" />
+		<input type="submit" value="Encrypt" name="encrypt" id="encrypt" />
+		<input type="submit" value="Decrypt" name="decrypt" id="decrypt" />
+	</form>
+</body>
+</html>

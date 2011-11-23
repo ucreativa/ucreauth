@@ -23,6 +23,7 @@
 																	FROM tbl_services,tbl_users_services,tbl_users
 																	WHERE tbl_services.service_id = tbl_users_services.service_fk
 																	AND tbl_users.user_id = tbl_users_services.user_fk
+																	AND tbl_users_services.user_service_status = 'A'
 									                        AND tbl_users.user_krb_name = '" . $user_krb_name . "'");
 			                      		                          
 			return $this->data_provide->sql_get_rows($result);

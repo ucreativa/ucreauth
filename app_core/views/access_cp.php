@@ -1,21 +1,24 @@
 ﻿<?php
     include_once($_SERVER["DOCUMENT_ROOT"] . "/ucreauth/security.php");
-    //require_once($_SERVER["DOCUMENT_ROOT"] . "/ucreauth/lock.php");
+
     require_once(__CLS_PATH . "cls_html.php");
     require_once(__CLS_PATH . "cls_kerberos.php");
     require_once(__CLS_PATH . "cls_user.php");
     require_once(__CTR_PATH . "ctr_login.php");
     require_once(__CLS_PATH . "cls_service.php");
     require_once(__CLS_PATH . "cls_gmatom.php");
+    require_once(__CLS_PATH . "cls_encrypt.php");
 
     //Declaramos el controlador de la vista actual el cual contiene las acciones a ejecutar
     $ctr_Login=new ctr_Login();
+    $encrypt=new cls_Encrypt();
     $GMatom=new cls_GmAtom();
-    $GMatom->GmAtom($_SESSION['USERNAME'] . $array_global_settings['realm_server'], "solodios");
+    
 ?>
 
 ﻿ <?php
       //Eventos click de los botones de acción
+
 
 	   if(isset($_POST['btn_logout'])){
 	     $ctr_Login->btn_logout_click();
@@ -23,25 +26,34 @@
         $_SESSION['LOGOUT']="YES";
         include($_SERVER["DOCUMENT_ROOT"] . "/ucreauth/security.php");
 	   }
+
  ?>
 
       <script type="text/javascript"> 
 	      $(document).ready(function() {$("#form_base").draggable();});
 	      $(document).ready(function(){$('#login').slideUp(0);});
       </script>
+      
 		<div id="access_panel">
 			 <?php
 			 
 		        $userdata=new cls_User();
 		   	  $row=$userdata->get_userdata($_SESSION['USERNAME'],"-1");
+		   	  $key=$encrypt->decrypt($row[0][16]);
+		   	  $GMatom->GmAtom($_SESSION['USERNAME'] . $array_global_settings['realm_server'], $key);
               $usr_data=$row;
+              
     			  echo "<div class='menu_item' id='user_item' onclick=\"show_close_menu('login');\">" 
     			  . cls_HTML::html_img_tag(__RSC_PHO_HOST_PATH . "thumbs/" . $row[0][6] , "tn_img_user", "img_link" ,$row[0][13], "width=20") 
     			  . "<p class='text_cpbar'>" . $row[0][13] . "</p></div>";
 
 				  echo "<div id='login'>";
 	              echo cls_HTML::html_form_tag("frm_logout", "" ,"","post");
-	              //echo cls_HTML::html_input_button("button","btn_profile","btn_profile","subitem button","Mi perfil",0,"","");
+	              
+	              if($_SESSION['USERNAME']=='uti.pruebas'){
+	                echo cls_HTML::html_input_button("submit","btn_profile","btn_profile","subitem button","Mi perfil",0,"","");
+	              }
+	              
 	              //echo cls_HTML::html_input_button("button","btn_service","btn_profile","subitem button","Solicitar servicio",0,"","");
 	  		        echo cls_HTML::html_input_button("submit","btn_logout","btn_logout","subitem button","Salir",0,"","");
 	  			     echo cls_HTML::html_form_end();
@@ -56,7 +68,7 @@
 				      if($row){
 						  foreach($row as $value){
 						  	  //Parámetros de: html_img_tag($src, $id, $class, $alt, $size)
-						  	  $external_link="onclick=\"$('#mainframe').attr('src','".$value[4]."?username=".$value[7]."');\"";
+						  	  $external_link="onclick=\"$('#mainframe').attr('src','". urldecode($value[4]."?username=".$value[7]) ."');\"";
 						  	  $GMcount="";
 						  	  //Si el servicio es de correo entonces lo abrimos en una ventana nueva
 						  	  if($value[1]=='correo'){
@@ -82,5 +94,10 @@
        //Si requiere cambio de contraseña mostramos el formulario correspondiente
        if($usr_data[0][15]=='1'){
          echo "<script type='text/javascript'>open_form('".__VWS_HOST_PATH."change_pssw.php?usr=".$_SESSION['USERNAME']."',310,210);</script>";  
-       }     
+       } 
+       
+       	   
+	   if(isset($_POST['btn_profile'])){
+          echo "<script type='text/javascript'>open_form('".__VWS_HOST_PATH."user_profile.php?edit=1&id=".$usr_data[0][0]."',630,430);</script>";  
+	   }    
      ?>

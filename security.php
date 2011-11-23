@@ -1,4 +1,4 @@
-﻿<?php
+﻿<?php       
     require_once($_SERVER["DOCUMENT_ROOT"] . "/ucreauth/global.php");
     require_once( __CLS_PATH . "cls_kerberos.php");
 
@@ -33,16 +33,17 @@
 	      }
 	   
          //Si no cerramos desde el la opción SALIR
-         if($_SESSION['LOGOUT']!='YES'){
-             //Mostramos mensaje de sesión expirada
-            session_name("UCREAUTH");
-	         session_destroy();
-		      cls_Message::show_message("","msg_box_user","expired_session");
-         }else{
-         	session_name("UCREAUTH");
-	         session_destroy();
-            header('Location: index.php');
+         session_name("UCREAUTH");
+         session_start();
+	      session_destroy();
+	      
+	      if(isset($_SESSION['LOGOUT'])){   
+	         if($_SESSION['LOGOUT']=='YES'){
+	            header('Location: index.php');
+	         }
          }
+         
+         cls_Message::show_message("","msg_box_user","expired_session");
 
 	   }
    }catch(Exception $e){

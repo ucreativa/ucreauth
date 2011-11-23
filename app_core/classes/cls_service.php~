@@ -36,8 +36,7 @@
 																	tbl_services.service_description,
 																	tbl_services.service_url,
 																	tbl_services.service_status,
-																	tbl_services.service_created,
-																	tbl_users_services.user_service_username
+																	tbl_services.service_created
 																	FROM tbl_services");
 			                      		                          
 			return $this->data_provide->sql_get_rows($result);

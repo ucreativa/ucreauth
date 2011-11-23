@@ -1,5 +1,5 @@
 <?php
-      require_once("global.php"); 
+      require_once("global.php");
 	   require_once( __CLS_PATH . "cls_html.php");
 ?>
 
@@ -17,7 +17,8 @@
 
     <title>UCREATIVA <? //echo $array_global_settings['sys_version'];?></title>
   </head>
-   <? 
+   <?
+
      // Restricción para versiones de Internet Explorer 8 o inferior
      echo "<script type='text/javascript'>checkVersion();</script>"; 
    ?>
@@ -34,7 +35,7 @@
 	       //Inicio la sesión
 		    session_name("UCREAUTH");
 		    session_start();
-            $_SESSION['LOGOUT']="NO";
+		    $_SESSION['LOGOUT']="NO";
 		    	    
           //unset($_SESSION['AUTH']);
           if(isset($_SESSION['AUTH'])){
@@ -44,7 +45,7 @@
 		       	include_once(__VWS_PATH . "/access_cp.php");
 		       }
 		    }else{
-             include_once(__VWS_PATH . "/login.php");	    
+            include_once(__VWS_PATH . "/login.php");    
 		    }
 
 		    echo "<script>$('#mainframe').attr('src','http://www.ucreativa.com/ucreasite')</script>";

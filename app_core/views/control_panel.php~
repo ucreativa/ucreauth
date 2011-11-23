@@ -1,11 +1,11 @@
-﻿<?php
+﻿<?php    
     require_once($_SERVER["DOCUMENT_ROOT"] . "/ucreauth/global.php");
     require_once(__CLS_PATH . "cls_html.php");
     
     session_name("UCREAUTH");
     session_start();
     
-    if !(isset($_SESSION['USERNAME'])){
+    if (!(isset($_SESSION['USERNAME']))){
     	header("Location: index.php");
     }
 ?>

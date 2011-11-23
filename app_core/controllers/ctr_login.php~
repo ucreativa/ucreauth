@@ -4,7 +4,7 @@
    de Login (LOGIN, LOGOUT) */
    
    require_once($_SERVER["DOCUMENT_ROOT"] . "/ucreauth/global.php");
-   require_once( __CLS_PATH . "cls_kerberos.php");
+   //require_once( __CLS_PATH . "cls_kerberos.php");
    require_once( __CLS_PATH . "cls_login.php");
    
    class ctr_Login {
@@ -27,8 +27,6 @@
 		      //Si nos autentificamos correctamente
 				if($this->login_acc->conn_status)
 				{
-				    session_name("UCREAUTH");
-				 	 session_start();
 				 	 $_SESSION['AUTH']="YES";
 				 	 $_SESSION['USERNAME']=$this->login_acc->get_username();
 				}else{

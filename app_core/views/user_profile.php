@@ -2,7 +2,6 @@
     require_once($_SERVER["DOCUMENT_ROOT"] . "/ucreauth/global.php");
     require_once(__CLS_PATH . "cls_html.php");
     require_once(__CLS_PATH . "cls_searchbox.php");
-
 ?>
 
 <html>
@@ -13,6 +12,7 @@
 	       echo cls_HTML::html_js_header(__JS_PATH . "functions.js");
 	       echo cls_HTML::html_js_header(__JS_PATH . "dateselect/dateSelectBoxes.js");
           echo cls_HTML::html_css_header(__CSS_PATH . "style.css","screen");
+	      
 	   ?>
 	 <title>UCREAUTH v1.0</title>
  </head>
@@ -29,6 +29,7 @@
         <script>
             $(document).ready(function() {
                $().dateSelectBoxes($('#cmb_month'),$('#cmb_day'),$('#cmb_year'));
+					disable_edit($('#chk_editprofile'));
             });
 
             function show_pssw_box(element){
@@ -42,6 +43,42 @@
 	         	  $('#txt_pssw').removeAttr('required');
 	         	}
             }
+            
+             function enable_edit(element){
+	         	if($('#'+element.id).attr('checked')=="checked"){
+	               $('.text').css('border','');
+	               $('#txt_user').css('border','none');
+	 					$('.textarea').css('border','');
+	 					$('.combo').css('border','');
+	 					$('.text').removeAttr('readonly');
+	 					$('.textarea').removeAttr('readonly');
+						$('.combo').removeAttr('disabled');
+						$('.combo').css('background','');
+						$('.combo').css('color','');
+						$('#btn_save').css('display','block');
+						$('#opt_chpassword').css('display','block');
+	         	  }else{
+	         	  	disable_edit(element);
+	         	  }
+             }
+             
+            function disable_edit(element){
+	         	if($('#'+element.id).attr('checked')!="checked"){
+	         		show_pssw_box($('#chk_password'));
+	         		$('#chk_password').removeAttr('checked','');
+	               $('.text').css('border','none');
+	 					$('.textarea').css('border','none');
+	 					$('.text').attr('readonly','readonly');
+	 					$('.textarea').attr('readonly','readonly');
+	 					$('.combo').css('border','none');
+						$('.combo').attr('disabled','disabled');
+						$('.combo').css('background','#fff');
+						$('.combo').css('color','#000');
+						$('#btn_save').css('display','none');
+						$('#opt_chpassword').css('display','none');
+	         	  }
+             }
+             
         </script>
 
 	<div class="general_form_page">
@@ -49,21 +86,20 @@
 		    <?php echo cls_HTML::html_form_tag("frm_user", "","","post"); ?>
 		    <div id="sub_options">
 		    <div id="chpssw_option">
+		    <?php echo cls_HTML::html_check("chk_editprofile", "check", "", 1, "", "onclick='enable_edit(this);'"); ?>
+		    <?php echo cls_HTML::html_label_tag("Habilitar Edición"); ?>
+		    &nbsp;&nbsp;&nbsp;
+		    <span id="opt_chpassword" style="float:right;">
 		    <?php echo cls_HTML::html_check("chk_password", "check", "", 2, "", "onclick='show_pssw_box(this);'"); ?>
-			 <?php echo cls_HTML::html_label_tag("Habilitar cambio de password"); ?>
+			 <?php echo cls_HTML::html_label_tag("Habilitar cambio de contraseña"); ?>
+			 </span>
 			 </div>
 			 </div>
-			 <br/>
-		    <fieldset class="groupbox"> <legend>USUARIOS</legend>
+			 <br /><br />
+		    <fieldset id="gpb_profile" class="groupbox"> <legend>MI PERFIL</legend>
 			    <div class="block_form">
 				    <?php echo cls_HTML::html_input_hidden("txt_id",""); ?>
 				    <?php echo cls_HTML::html_input_hidden("txt_chpassw",""); ?>
-				    <?php echo cls_HTML::html_label_tag("Grupo de acceso:"); ?>
-				    <br />
-				    <?php echo cls_HTML::html_select_db("cmb_groups", $ctr_User->usersgroups->get_users_groups(), "cmb_groups", "combo", 8, "", ""); ?>
-				    <br /><br />
-				    <?php echo cls_HTML::html_label_tag("Nombre de Usuario:"); ?>
-				    <br />
 				    <?php echo cls_HTML::html_input_text("txt_user","txt_user","text",64,"","","Nombre de Usuario",1,"","","required"); ?>
 				    <br /><br />
 				    <div id="password_box">
@@ -84,12 +120,12 @@
 				    <br />
 		          <?php echo cls_HTML::html_input_text("txt_ident","txt_ident","text",9,"","","Cédula",5,"","onkeypress='return validarOnlyNum(event);'","required"); ?>
 				    <br /><br />
-				 </div>
-			    <div class="block_form">
 				    <?php echo cls_HTML::html_label_tag("Fecha de Nacimiento:"); ?>
 				    <br />
 		          <?php echo cls_HTML::html_select_date("combo", 6, "", ""); ?>
 		          <br /><br />
+				 </div>
+			    <div class="block_form">
 				    <?php echo cls_HTML::html_label_tag("Teléfono:"); ?>
 				    <br />
 		          <?php echo cls_HTML::html_input_text("txt_phone","txt_phone","text",8,"","","Teléfono",9,"","onkeypress='return validarOnlyNum(event);'",""); ?>
@@ -102,30 +138,13 @@
 				    <br />
 		          <?php echo cls_HTML::html_input_email("txt_email", "txt_email", "text", "E-mail alternativo", 128,"",12, "", "","required"); ?>
 		          <br /><br />
-		          <?php echo cls_HTML::html_label_tag("Tipo:"); ?>
-				    <br />
-		          <?php echo cls_HTML::html_select("cmb_usertype", array('E'=>'Estudiante', 'P'=>'Profesor', 'A'=>'Administrativo'), "cmb_usertype", "combo", 15, "", ""); ?>
-				 </div>
-				 <div class="block_form">
 				 	 <?php echo cls_HTML::html_label_tag("Descripción breve:"); ?>
 				    <br />
-				    <?php echo cls_HTML::html_textarea(2,30,"txt_info","txt_info","textarea","",13,"","",""); ?>
-				    <br /><br />
-				    <?php echo cls_HTML::html_label_tag("Tiempo de sesión (En segundos):"); ?>
-				    <br />
-		          <?php echo cls_HTML::html_input_text("txt_lifetime","txt_lifetime","text",5,"","3600","Tiempo de la sesión",14,"","onkeypress='return validarOnlyNum(event);'","required"); ?>
-				    <br /><br />
-				    <?php echo cls_HTML::html_label_tag("Estado:"); ?>
-				    <br />
-		          <?php echo cls_HTML::html_select("cmb_status", array('A'=>'Activo', 'I'=>'Inactivo'), "cmb_status", "combo", 15, "", ""); ?>
-				    <br />
+				    <?php echo cls_HTML::html_textarea(7,30,"txt_info","txt_info","textarea","",13,"","",""); ?>
 				 </div>
 			 </fieldset>
 	 		 <div id="action_buttons_form">
-			    <?php echo cls_HTML::html_input_button("submit","btn_new","btn_new","button","Nuevo",11,"","onclick=\"$('#frm_user').attr('novalidate','novalidate');\""); ?>
 			    <?php echo cls_HTML::html_input_button("submit","btn_save","btn_save","button","Guardar",12,"","onclick=\"if($('#password_box').css('display')!='none'){return validate_pssw();}\""); ?>
-			    <?php echo cls_HTML::html_input_button("submit","btn_search","btn_search","button","Buscar",13,"","onclick=\"$('#frm_user').attr('novalidate','novalidate');\""); ?>
-			    <br /><br />
 		    </div>
 		    <?php echo cls_HTML::html_form_end(); ?>
 		</div>
@@ -133,17 +152,8 @@
       <?php
 	      //Eventos click de los botones de acción
 
-		   if(isset($_POST['btn_new'])){
-		   	$ctr_User->btn_new_click();
-		   }
-
 		   if(isset($_POST['btn_save'])){
-		   	$ctr_User->btn_save_click();
-		   }
-
-		   if(isset($_POST['btn_search'])){
-		   	 $search=new cls_Searchbox();
-		       echo $search->show_searchbox(__VWS_HOST_PATH . "users.php", "Búsqueda de Usuarios", "&nbsp;&nbsp;Digite el nombre del usuario:", "users.php", "frm_user");
+		   	$ctr_User->btn_saveprofile_click();
 		   }
 
 
@@ -154,13 +164,10 @@
 
 		  		if($_GET['edit']=="1"){
 		  			$user_data=$ctr_User->get_userdata($_GET['id']);
-
 		  			echo "<script>
 		  			         $('#txt_user').attr('readonly','readonly');
-		  			         $('#txt_user').css('background','#CCC');
 		  			         $('#txt_id').attr('value','" . $user_data[0][0] . "');
-		  			         $('#cmb_groups').attr('value','" . $user_data[0][1] . "');
-		  			         $('#txt_user').attr('value','" . $user_data[0][2] . "');
+		  			         $('#txt_user').attr('value','      " . $user_data[0][2] . "');
 		  			         $('#txt_ident').attr('value','" . $user_data[0][3] . "');
 		  			         $('#txt_email').attr('value','" . $user_data[0][4] . "');
 		  			         $('#txt_phone').attr('value','" . $user_data[0][5] . "');
@@ -171,16 +178,24 @@
 		  			         $('#cmb_year').attr('value','" . substr($user_data[0][8], 0, 4)  . "');
 		  			         $('#cmb_status').attr('value','" . $user_data[0][9] . "');
 		  			         $('#txt_info').attr('value','" . $user_data[0][11] . "');
-		  			         $('#txt_lifetime').attr('value','" . $user_data[0][12] . "');
 		  			         $('#txt_realname').attr('value','" . $user_data[0][13] . "');
-		  			         $('#cmb_usertype').attr('value','" . $user_data[0][14] . "');
 
 		  			         $('#password_box').css('display','none');
-		  			         $('#password_box').css('padding','3px');
-		  			         $('#password_box').css('border','1px solid #6B956B');
+		  			         $('#password_box').css('padding','5px');
+		  			         $('#password_box').css('background','#CCC');
 			  	            $('#chpssw_option').css('display','block');
 			  	            $('#txt_pssw').removeAttr('required');
 		  			      </script>";
+		  			      
+		  			     echo "<script>
+									//$('#btn_save').css('background','#4185F3');
+									$('#txt_user').css('border','none');
+									$('#txt_user').css('font-weight','bold');
+									$('#txt_user').css('font-size','16px');
+									$('#gpb_profile').css('background','no-repeat left url(" . __RSC_PHO_HOST_PATH . "/default.png)');
+									$('#gpb_profile').css('background-position','top right');
+									$('#txt_user').css('background','no-repeat left url(" . __RSC_PHO_HOST_PATH . "thumbs/default.png)');
+		  			         </script>";
 		  		}
 
 		   }else{
