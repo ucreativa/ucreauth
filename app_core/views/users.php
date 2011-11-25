@@ -107,6 +107,12 @@
 		          <?php echo cls_HTML::html_select("cmb_usertype", array('E'=>'Estudiante', 'P'=>'Profesor', 'A'=>'Administrativo'), "cmb_usertype", "combo", 15, "", ""); ?>
 				 </div>
 				 <div class="block_form">
+		          <?php echo cls_HTML::html_check("chk_editprofile", "check", "", 1, "", "onclick=''"); ?>
+		          <?php echo cls_HTML::html_label_tag("Forzar edición de perfil"); ?>
+		          <br /><br />
+		          <?php echo cls_HTML::html_check("chk_newpssw", "check", "", 1, "", ""); ?>
+		          <?php echo cls_HTML::html_label_tag("Forzar nueva contraseña"); ?>
+		          <br /><br />
 				 	 <?php echo cls_HTML::html_label_tag("Descripción breve:"); ?>
 				    <br />
 				    <?php echo cls_HTML::html_textarea(2,30,"txt_info","txt_info","textarea","",13,"","",""); ?>
@@ -174,6 +180,8 @@
 		  			         $('#txt_lifetime').attr('value','" . $user_data[0][12] . "');
 		  			         $('#txt_realname').attr('value','" . $user_data[0][13] . "');
 		  			         $('#cmb_usertype').attr('value','" . $user_data[0][14] . "');
+		  			         $('#chk_editprofile').attr('value','" . $user_data[0][17] . "');
+		  			         $('#chk_newpssw').attr('value','" . $user_data[0][15] . "');
 
 		  			         $('#password_box').css('display','none');
 		  			         $('#password_box').css('padding','3px');

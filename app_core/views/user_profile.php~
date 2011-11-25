@@ -50,6 +50,9 @@
 	               $('#txt_user').css('border','none');
 	 					$('.textarea').css('border','');
 	 					$('.combo').css('border','');
+	 					$('.text').removeAttr('readonly');
+	 					$('.textarea').removeAttr('readonly');
+	 					$('#txt_user').attr('readonly','readonly');
 						$('.combo').removeAttr('disabled');
 						$('.combo').css('background','');
 						$('.combo').css('color','');
@@ -66,6 +69,8 @@
 	         		$('#chk_password').removeAttr('checked','');
 	               $('.text').css('border','none');
 	 					$('.textarea').css('border','none');
+	 					$('.text').attr('readonly','readonly');
+	 					$('.textarea').attr('readonly','readonly');
 	 					$('.combo').css('border','none');
 						$('.combo').attr('disabled','disabled');
 						$('.combo').css('background','#fff');

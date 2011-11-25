@@ -1,12 +1,4 @@
 <?php
-/**
- * mail.php
- *
- * A (very) simple mailer class written in PHP.
- *
- * @author Zachary Fox
- * @version 1.0
- */
 
 class cls_Mail{
     var $to = null;
@@ -14,8 +6,12 @@ class cls_Mail{
     var $subject = null;
     var $body = null;
     var $headers = null;
+    
+    public function __construct()
+	 {
+	 }
 
-     function ZFmail($to,$from,$subject,$body){
+    function ZFmail($to,$from,$subject,$body){
         $this->to      = $to;
         $this->from    = $from;
         $this->subject = $subject;
@@ -23,10 +19,11 @@ class cls_Mail{
     }
 
     function send(){
-      $this->addHeader('From: '.$this->from."\r\n");
+        $this->addHeader('From: '.$this->from."\r\n");
         $this->addHeader('Reply-To: '.$this->from."\r\n");
         $this->addHeader('Return-Path: '.$this->from."\r\n");
         $this->addHeader('X-mailer: mail 1.0'."\r\n");
+        $this->addHeader('Content-type: text/html'."\r\n");
         mail($this->to,$this->subject,$this->body,$this->headers);
     }
 

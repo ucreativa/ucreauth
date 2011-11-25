@@ -26,7 +26,7 @@
   <div id="inactive_base"></div>
   <body id="main_page">
 
-		 <iframe id="mainframe" type="text/html" src="http://www.ucreativa.com/ucreasite" width="100%" height="94%"></iframe>  
+		 <iframe id="mainframe" type="text/html" src="http://www.ucreativa.com/ucreasite" width="100%" height="97%"></iframe>  
 
    
   	<div id="cp_bar">

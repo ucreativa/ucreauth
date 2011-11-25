@@ -54,7 +54,9 @@
 	      //Eventos click de los botones de acción
 
 		   if(isset($_POST['btn_save'])){
-		   	if($user_adm->update_chpssw($_GET['usr'],$_POST['txt_pssw'])==true){
+		   	$row=$user_adm->get_userdata_by_name($_GET['usr']);
+		   	
+		   	if($user_adm->update_chpssw($_GET['usr'],$_POST['txt_pssw'],$row[0][4])==true){
 		   		$message=cls_Message::show_message("Contraseña Actualizada!","success","");
 		   		//alert('Su contraseña ha sido actualizada correctamente, los datos de autenticación han sido enviados al correo asociado a su cuenta');
 		   		echo "<script>parent.location.href='http://www.ucreativa.com';</script>"; 

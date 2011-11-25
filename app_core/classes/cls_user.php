@@ -28,7 +28,8 @@
 																	tbl_users.user_realname,
 																	tbl_users.user_type,
 																	tbl_users.user_chpssw,
-																	tbl_users.user_genpssw
+																	tbl_users.user_genpssw,
+																	tbl_users.user_chprofile
 																	FROM tbl_users
 																	WHERE tbl_users.user_krb_name = '" . $user_krb_name . "'
 																	OR tbl_users.user_id = " . $id_user);
@@ -94,7 +95,9 @@
 																	user_description = '".$userdata[10]."',
 																	user_lifetime = ".$userdata[11].",
 																	user_realname = '".$userdata[12]."',
-																	user_type = '".$userdata[13]."'
+																	user_type = '".$userdata[13]."',
+,																	user_chpssw = '".$userdata[16]."'
+																	user_chprofile = '".$userdata[17]."'
 																	WHERE tbl_users.user_id = " . $id_user);
 			if($result){
 				$success=true;

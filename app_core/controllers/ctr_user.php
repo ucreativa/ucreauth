@@ -4,15 +4,17 @@
    de Usuarios (ADD,EDIT,DELETE,SEARCH) */
    
    require_once($_SERVER["DOCUMENT_ROOT"] . "/ucreauth/global.php");
-   require_once( __CLS_PATH . "cls_user.php");
-   require_once( __CLS_PATH . "cls_kerberos.php");
-   require_once( __CLS_PATH . "cls_usergroup.php");  
+   require_once(__CLS_PATH . "cls_user.php");
+   require_once(__CLS_PATH . "cls_kerberos.php");
+   require_once(__CLS_PATH . "cls_usergroup.php"); 
+   require_once(__CLS_PATH . "cls_mail.php");   
      
    class ctr_User {
    	
    	private $userdata;
       private $kadmin;
       var $usersgroups;
+      var $mailcore;
       
       public function __construct()
 	   {
@@ -24,6 +26,11 @@
 	   public function get_userdata($id_user)
 	   {
 			 return $this->userdata->get_userdata("",$id_user);
+	   } 
+	   
+	   public function get_userdata_by_name($name_user)
+	   {
+			 return $this->userdata->get_userdata($name_user,"-1");
 	   }  
 	   
    	  
@@ -54,6 +61,8 @@
 	      $userinfo[13]=$_POST['cmb_usertype'];
 	      $userinfo[14]=$_POST['txt_pssw'];
 	      $userinfo[15]=$_POST['txt_chpassw'];
+	      $userinfo[16]=$_POST['chk_newpssw'];
+	      $userinfo[17]=$_POST['chk_editprofile'];
 	   	
 	   	/*Si vamos a insertar un registro nuevo (_NEW) o actualizar en caso de que
 	   	$_GET['id'] tenga un valor asignado desde el formulario de búsqueda*/   	
@@ -96,12 +105,26 @@
 	   	
 		   	if(($this->userdata->update_userprofile($userinfo,$id_user))){
 		   		 //si la opcion de cambio de password está seleccionada se procede a el cambio
+		   		
+		   		//variable que determina si se cambió el password o no
+		   		//para saber que mensaje mostrar al usuario 
+		   		$msg_chpssw=0;
+		   		
 		   		 if($userinfo[15]=='KRB5_CHPSSW'){
 		   		 	$this->kadmin->krb5_edit_userpssw($userinfo[1],$userinfo[14]);
+		   		 	
+		   		 	 //Enviamos el e-mail de cambio de password
+						 ctr_User::mail_chpasswd($userinfo[1],$userinfo[14],$userinfo[3]);	
+					    $msg_chpssw=1;
 		   		 }
-		   		   
-		      	 cls_Message::show_message("","success","success_update");
-                //Limpiamos las variables para inicializar la página con _NEW
+		   		 
+		   		 if($msg_chpssw==0){  
+		      	    cls_Message::show_message("","success","success_update");
+		      	 }else{
+		      	 	 cls_Message::show_message("Datos actualizados exitosamente.
+		      	 	 									 Su nueva contraseña ha sido enviada al correo asociado a su cuenta.","success","");
+		      	 }
+                		   	
 		      }
 		} 
 
@@ -111,11 +134,12 @@
           unset($_GET['edit']);
 	   }
 	   
-	   function update_chpssw($username,$password) {
+	   function update_chpssw($username,$password,$email) {
 	   	$success=false;
 			if($this->kadmin->krb5_edit_userpssw($username,$password)==true 
 			   && $this->userdata->update_chpssw($username)==true){
-			     $success=true;	
+			     $success=true;
+			     ctr_User::mail_chpasswd($username,$password,$email);	
 			}
 			return $success;
 	   }
@@ -123,6 +147,18 @@
 	   function btn_delete_click() {
 
 	   }
+	   
+	   function mail_chpasswd($username,$password,$email){
+	    		   	 $this->mailcore = new cls_Mail();
+		   		    $body="<b>Universidad Creativa - Datos de usuario:&nbsp;&nbsp;</b><br/><br/>
+								  <b>+ Usuario: </b>" . $username .
+								 "<br/><b>+ Contraseña:&nbsp;&nbsp;</b>" . $password .
+								 "<br/><br/><b>Ingrese a:&nbsp;&nbsp;<a href='http://www.ucreativa.com' title='ucreativa'>http://www.ucreativa.com</a>";
+								 
+		   		    $this->mailcore->ZFmail($email,"uti@ucreativa.com","Cambio de Contraseña",$body);
+					    $this->mailcore->send();	
+	   }
+	   
    }
 	
 ?>

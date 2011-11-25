@@ -34,12 +34,13 @@ a, input{
 	font-weight: bold;
 	margin-top: 8px;
 	font-family: "Century Gothic","Arial",Verdana,"Segoe UI",sans-serif;
+	color: #6699CC;
 }
 
 #mainframe{
 	position: relative; 
-	top:15px;
-	border:0px;
+	top:8px;
+	border:0px none;
 }
 
 #login_item,#user_item{
@@ -57,7 +58,7 @@ a, input{
 
 .menu_item:hover{
 	cursor: pointer;
-	background: #CCC;
+	background: #EEE;
 }
 
 #btn_logout{
@@ -73,13 +74,13 @@ a, input{
 
 .subitem{
   position: relative;
-  width:  118%;
+  width:  116%;
   height: 28px;
   left:5px;
   border: 0px solid #777;
   margin-left: -20px;
   margin-right: -20px;
-  background: #DCDCDC;
+  background: #FFF;
   font-size: 12px;
   font-weight: bold;
   font-family: Arial;
@@ -89,12 +90,12 @@ a, input{
 
 .subitem:hover{
   cursor: pointer;
-  background: #ccc;
+  background: #DDD;
 }
 
 .menu_item:active{
 	border: 1px inset #DDD;
-	background: #CCC;
+	background: #DDD;
 }
 
 #login{
@@ -104,11 +105,11 @@ a, input{
     margin: auto;
     border: 0px solid #CCCCCC;
 	 padding: 15px;
-    background: #DCDCDC;
-    border: 5px solid #CCC;
+    background: #FFFFFF;
+    border: 1px solid #CCC;
     border-top: 0px solid #CCC;
     color: #333;
-    top: 30px;
+    top: 31px;
     right: 20px;
     font-weight: bold;
     box-shadow: 3px 3px 5px #ccc;
@@ -253,7 +254,7 @@ a, input{
 }
 
 .img_link{
-	border: 1px solid #CCC;
+	border: 0px solid #CCC;
 	margin: 5px;
    cursor: pointer;
    float: left;
@@ -338,7 +339,7 @@ a, input{
 	display: none;
 	position: relative;
 	margin:auto;
-	top: -160px;
+	top: -260px;
 	background: #FFF;
 	z-index:2;
 	box-shadow: 5px 5px 28px #222;

@@ -52,6 +52,7 @@
 	 					$('.combo').css('border','');
 	 					$('.text').removeAttr('readonly');
 	 					$('.textarea').removeAttr('readonly');
+	 					$('#txt_user').attr('readonly','readonly');
 						$('.combo').removeAttr('disabled');
 						$('.combo').css('background','');
 						$('.combo').css('color','');
@@ -134,9 +135,9 @@
 				    <br />
 		          <?php echo cls_HTML::html_select("cmb_gender", array('M'=>'Masculino', 'F'=>'Femenino'), "cmb_gender", "combo", 11, "", ""); ?>
 		          <br /><br />
-		          <?php echo cls_HTML::html_label_tag("E-mail:"); ?>
+		          <?php echo cls_HTML::html_label_tag("E-mail (Sólo para envío de contraseña):"); ?>
 				    <br />
-		          <?php echo cls_HTML::html_input_email("txt_email", "txt_email", "text", "E-mail alternativo", 128,"",12, "", "","required"); ?>
+		          <?php echo cls_HTML::html_input_email("txt_email", "txt_email", "text", "E-mail alternativo (Sólo para envío de contraseña)", 128,"",12, "", "","required"); ?>
 		          <br /><br />
 				 	 <?php echo cls_HTML::html_label_tag("Descripción breve:"); ?>
 				    <br />
