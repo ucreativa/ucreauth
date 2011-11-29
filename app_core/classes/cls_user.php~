@@ -95,10 +95,12 @@
 																	user_description = '".$userdata[10]."',
 																	user_lifetime = ".$userdata[11].",
 																	user_realname = '".$userdata[12]."',
-																	user_type = '".$userdata[13]."',
-,																	user_chprofile = '".$userdata[16]."'
-																	user_type = '".$userdata[17]."'
+																	user_type = '".$userdata[13]."'
 																	WHERE tbl_users.user_id = " . $id_user);
+																	
+																	//,
+																	//user_chpssw = '".$userdata[16]."',
+																	//user_chprofile = '".$userdata[17]."'
 			if($result){
 				$success=true;
 			}
