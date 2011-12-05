@@ -39,7 +39,7 @@
 		<div id="control_panel">
 			 <div id="cp_icons_panel">
 			     <?php echo cls_HTML::html_img_link(__IMG_PATH . "usuarios.png" , "#", "" ,"Usuarios", "icon_1", "cp_icons", "new_user","", "onclick=\"open_form('users.php',825,420);\""); ?>
-			     <?php echo cls_HTML::html_img_link(__IMG_PATH . "usr_servicios.png" , "#", "" ,"Asignar Servicios", "icon_2", "cp_icons", "usr_serv","", "onclick=\"open_form('userservices.php',660,380);\""); ?>
+			     <?php echo cls_HTML::html_img_link(__IMG_PATH . "usr_servicios.png" , "#", "" ,"Asignar Servicios", "icon_2", "cp_icons", "usr_serv","", "onclick=\"open_form('userservices.php',660,460);\""); ?>
 			     <?php //echo cls_HTML::html_img_link(__IMG_PATH . "grupos.png" , "#", "" ,"Grupos", "icon_2", "cp_icons", "new_group","", "onclick=\"open_form('usersgroups.php',700,380);\""); ?>
 		    </div>
       </div>

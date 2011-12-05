@@ -254,10 +254,16 @@ a, input{
 }
 
 .img_link{
+	position: relative;
 	border: 0px solid #CCC;
 	margin: 5px;
    cursor: pointer;
    float: left;
+}
+
+.img_link:hover{
+	 background-image: -webkit-gradient(linear,left bottom,left top,color-stop(0.89, rgb(255,255,255)),color-stop(1, rgb(227,227,227)));
+	 background-image: -moz-linear-gradient(center bottom,rgb(255,255,255) 29%,rgb(227,227,227) 100%);
 }
 
 #tn_img_user{

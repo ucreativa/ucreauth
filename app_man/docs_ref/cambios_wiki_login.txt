@@ -9,7 +9,21 @@ Archvos modificados:
 
 line 0
 
-<script src="//ajax.googleapis.com/ajax/libs/jquery/1.6.1/jquery.min.js" type="text/javascript"></script>
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.1/jquery.min.js" type="text/javascript"></script>
+
+<?php
+//REDIRECCIONAMOS A LA PÁGINA DE LA UCREATIVA
+
+ echo  "<script>
+        if(!parent.frameMain){
+        	  location.href='http://wiki.ucreativa.com/index.html';
+        }
+       </script>";
+
+//$url="http://" . $_SERVER['SERVER_NAME'] . $_SERVER['REQUEST_URI'];
+//if(!(isset($_GET['service']))){
+	//echo "<script>location.href='http://ucreativa.com?wiki=" . $url . "';</script>";
+//}
 
 
 >>>>>>>>>> mediawiki/includes/specials/SpecialUserLogin.php

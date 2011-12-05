@@ -38,7 +38,7 @@
 			    } 
 			} 
 	      
-	      //$userserviceinfo[2]=$_POST['txt_username'];
+	      $userserviceinfo[1]=$_POST['txt_username'];
 	      //$userserviceinfo[4]=$_POST['txt_rol'];
 
 	   	

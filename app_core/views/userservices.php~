@@ -15,10 +15,9 @@
 	   <?php
 	       echo cls_HTML::html_js_header(__JS_PATH . "jquery-1.6.2.min.js");
 	       echo cls_HTML::html_js_header(__JS_PATH . "jquery-ui-1.8.6.custom.min.js");
-          echo cls_HTML::html_js_header(__JS_PATH . "jquery.betterTooltip.js");
 	       echo cls_HTML::html_js_header(__JS_PATH . "functions.js");
+	       echo cls_HTML::html_js_header(__JS_PATH . "basic_tooltip.js");
           echo cls_HTML::html_css_header(__CSS_PATH . "style.css","screen");
-	       echo cls_HTML::html_css_header(__CSS_PATH . "tooltip/theme/style_tooltip.css","screen");
 	   ?>
 	 <title>UCREAUTH v1.0</title>
  </head>
@@ -26,7 +25,7 @@
   <body>
         <script>
             $(document).ready(function() {
-            	$('.text').betterTooltip({speed: 150, delay: 300});
+            	basic_tooltip('.text');
             });
         </script>
 
@@ -41,7 +40,7 @@
 				    <?php echo cls_HTML::html_input_text("txt_username","txt_username","",32,"","","Nombre de Usuario",1,"","","required"); ?>
 				    <br /><br /><br /><br />
 				    <fieldset class="groupbox"> <legend>SERVICIOS</legend>
-				      <div class="block_form">
+				      <div class="block_form" style="padding: 5px; overflow: scroll; height:200px;">
 				      <? 
 					      $row=$services->get_services();
 					      $i=0;
@@ -49,9 +48,13 @@
 					     	
 					      foreach($row as $value){				      	
 					      	?>
-						      <?php echo cls_HTML::html_check("chk_". $value[0], "check", "", $i+3, "", "");?>
-						      <?php echo cls_HTML::html_label_tag($value[1]); ?>
-						      <?php //echo cls_HTML::html_input_text("txt_uservname_". $i,"txt_uservname_". $i,"text",32,"","","Nombre de Usuario",$i+4,"","",""); ?>
+					      	<table cellpadding="0" border="0">
+					      	<tr>
+						      <td><?php echo cls_HTML::html_check("chk_". $value[0], "check", "", $i+3, "", "");?></td>
+						      <td width="140"><?php echo cls_HTML::html_label_tag($value[1]); ?></td>
+						      <td><?php echo cls_HTML::html_input_text("txt_uservname_". $value[0],"txt_uservname_". $value[0],"text",32,"","","Nombre de Usuario",$i+4,"","placeholder='USERNAME'",""); ?></td>				      
+						      </tr>
+						      </table>
 						      <br />
 					   <? $i++;
 					       
@@ -105,6 +108,7 @@
 			  			 foreach($userservice_data as $value){
 			  			  	  echo "<script>
 			  			         $('#chk_". $value[2] ."').attr('checked','cheked');
+			  			         $('#txt_uservname_". $value[2] ."').attr('value','".$value[3]."');
 			  			     </script>";
 			  			 }
 			  			 $id_user=$userservice_data[0][1];

@@ -13,12 +13,10 @@
     $ctr_Login=new ctr_Login();
     $encrypt=new cls_Encrypt();
     $GMatom=new cls_GmAtom();
-    
 ?>
 
 ﻿ <?php
       //Eventos click de los botones de acción
-
 
 	   if(isset($_POST['btn_logout'])){
 	     $ctr_Login->btn_logout_click();
@@ -39,7 +37,7 @@
 			 
 		        $userdata=new cls_User();
 		   	  $row=$userdata->get_userdata($_SESSION['USERNAME'],"-1");
-		   	  $key=$encrypt->decrypt($row[0][16]);
+		   	  $key=$encrypt->decrypt($row[0][16]); //desencripta el campo de passw real para el correo
 		   	  $GMatom->GmAtom($_SESSION['USERNAME'] . $array_global_settings['realm_server'], $key);
               $usr_data=$row;
               
@@ -49,12 +47,7 @@
 
 				  echo "<div id='login'>";
 	              echo cls_HTML::html_form_tag("frm_logout", "" ,"","post");
-	              
-	              if($_SESSION['USERNAME']=='uti.pruebas'){
-	                echo cls_HTML::html_input_button("submit","btn_profile","btn_profile","subitem button","Mi perfil",0,"","");
-	              }
-	              
-	              //echo cls_HTML::html_input_button("button","btn_service","btn_profile","subitem button","Solicitar servicio",0,"","");
+	              echo cls_HTML::html_input_button("submit","btn_profile","btn_profile","subitem button","Mi perfil",0,"","");
 	  		        echo cls_HTML::html_input_button("submit","btn_logout","btn_logout","subitem button","Salir",0,"","");
 	  			     echo cls_HTML::html_form_end();
 	  			  echo "</div>";
@@ -76,6 +69,17 @@
 						  	    $GMcount="<span id='gmalert'>" . $GMatom->check() . "</span>";
 						  	  }
 						  	  
+						  	  if($value[1]=='wiki'){
+						  	  	 if(isset($_GET['wiki'])){
+						  	    // echo "<script>$(document).ready(function(){$('#mainframe').attr('src','f');});</script>";
+						  	    }
+						  	  }
+						  	  
+						  	  if($value[1]=='publicidad'){
+						  	    $external_link="onclick=\"window.open('".$value[4]."','');\"";
+						  	  }
+						  	  
+						  	    //imprimimos en pantalla los íconos de servicios al usuario
 						  	    echo "<div title='".$value[3]."'" . $external_link . " >" 
 						  	          . cls_HTML::html_img_tag(__RSC_IMG_HOST_PATH . $value[2], $value[1], "img_link" ,$value[1], "") . $GMcount . "</div>";
 						  }
@@ -94,6 +98,11 @@
        //Si requiere cambio de contraseña mostramos el formulario correspondiente
        if($usr_data[0][15]=='1'){
          echo "<script type='text/javascript'>open_form('".__VWS_HOST_PATH."change_pssw.php?usr=".$_SESSION['USERNAME']."',310,210);</script>";  
+       }
+       
+       //Si requiere cambio de datos de perfil mostramos el formulario correspondiente
+       if($usr_data[0][17]=='1'){
+         echo "<script type='text/javascript'>open_form('".__VWS_HOST_PATH."user_profile.php?edit=1&id=".$usr_data[0][0]."&chprof=1',630,430);</script>"; 
        } 
        
        	   

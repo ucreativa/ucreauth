@@ -42,6 +42,14 @@
 	         	  $('#txt_pssw').removeAttr('required');
 	         	}
             }
+            
+            function chval(chk){
+            	if($('#'+chk.id).attr('checked')=="checked"){
+            		$('#'+chk.id).attr('value','1');
+            	}else{
+            		$('#'+chk.id).attr('value','0');
+            	}
+            }
         </script>
 
 	<div class="general_form_page">
@@ -107,11 +115,15 @@
 		          <?php echo cls_HTML::html_select("cmb_usertype", array('E'=>'Estudiante', 'P'=>'Profesor', 'A'=>'Administrativo'), "cmb_usertype", "combo", 15, "", ""); ?>
 				 </div>
 				 <div class="block_form">
-		          <?php echo cls_HTML::html_check("chk_editprofile", "check", "", 1, "", "onclick=''"); ?>
+				    <span id="box_editprofile">
+		          <?php echo cls_HTML::html_check("chk_editprofile", "check", "", 1, "", "onclick='chval(this);'"); ?>
 		          <?php echo cls_HTML::html_label_tag("Forzar edición de perfil"); ?>
+		          </span>
 		          <br /><br />
-		          <?php echo cls_HTML::html_check("chk_newpssw", "check", "", 1, "", ""); ?>
+		          <span id="box_newpssw">
+		          <?php echo cls_HTML::html_check("chk_newpssw", "check", "", 1, "", "onclick='chval(this);'"); ?>
 		          <?php echo cls_HTML::html_label_tag("Forzar nueva contraseña"); ?>
+		          </span>
 		          <br /><br />
 				 	 <?php echo cls_HTML::html_label_tag("Descripción breve:"); ?>
 				    <br />
@@ -173,15 +185,27 @@
 		  			         $('#img_userphoto').attr('value','" . $user_data[0][6] . "');
 		  			         $('#cmb_gender').attr('value','" . $user_data[0][7] . "');
 		  			         $('#cmb_day').attr('value','" . substr($user_data[0][8], 8, 2) . "');
-		  			         $('#cmb_month').attr('value','" . substr($user_data[0][8], 5, 2) . "');
+		  			         $('#cmb_month').attr('value','" . intval(substr($user_data[0][8], 5, 2)) . "');
 		  			         $('#cmb_year').attr('value','" . substr($user_data[0][8], 0, 4)  . "');
 		  			         $('#cmb_status').attr('value','" . $user_data[0][9] . "');
-		  			         $('#txt_info').attr('value','" . $user_data[0][11] . "');
+		  			         $('#txt_info').attr('value','" .$user_data[0][11] . "'));
 		  			         $('#txt_lifetime').attr('value','" . $user_data[0][12] . "');
 		  			         $('#txt_realname').attr('value','" . $user_data[0][13] . "');
 		  			         $('#cmb_usertype').attr('value','" . $user_data[0][14] . "');
-		  			         $('#chk_editprofile').attr('value','" . $user_data[0][17] . "');
-		  			         $('#chk_newpssw').attr('value','" . $user_data[0][15] . "');
+		  			         if(".$user_data[0][17]."==1){
+		  			         	$('#chk_editprofile').attr('checked','checked');
+		  			         	$('#chk_editprofile').attr('value','1');
+		  			         }else{
+		  			         	$('#chk_editprofile').removeAttr('checked','checked');
+		  			         	$('#chk_editprofile').attr('value','0');
+		  			         }
+		  			         if(".$user_data[0][15]."==1){
+		  			         	$('#chk_newpssw').attr('checked','checked');
+		  			         	$('#chk_newpssw').attr('value','1');
+		  			         }else{
+		  			         	$('#chk_newpssw').removeAttr('checked','checked');
+		  			         	$('#chk_newpssw').attr('value','0');
+		  			         }
 
 		  			         $('#password_box').css('display','none');
 		  			         $('#password_box').css('padding','3px');
@@ -196,6 +220,8 @@
 		  	           $('#txt_id').attr('value','_NEW');
 		  	           $('#password_box').css('display','block');
 		  	           $('#chpssw_option').css('display','none');
+		  	           $('#box_editprofile').css('display','none');
+		  	           $('#box_newpssw').css('display','none');
 		  	         </script>";
 		   }
 

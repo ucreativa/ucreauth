@@ -16,6 +16,12 @@
  * limitations under the License.
  */
   $error="";
+
+    $service="NO_SERVICE";
+    if(isset($_GET['service'])){
+      $service=$_GET['service'];
+    }
+    
  ?>
 <html>
 <head>
@@ -50,9 +56,10 @@
   </ul>
   </p>
 	
-  <form id="ServiceProviderForm" name="ServiceProviderForm" action="./create_request.php" method="post">
+  <form id="ServiceProviderForm" name="ServiceProviderForm" action="./create_request.php?service=<?echo $service;?>" method="post">
   <input type="hidden" name="action" value="Generate SAML Request">
   <input type="hidden" name="returnPage" value="service_provider.php">
+    <input type="hidden" name="service" value="<?echo $service;?>">
   <p><center><input id="btn_saml_request" type="submit" value="Generate SAML Request"></center>
   </form>
   <?php

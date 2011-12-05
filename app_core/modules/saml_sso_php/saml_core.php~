@@ -24,7 +24,7 @@
   <link href="global/style.css" type="text/css" rel="stylesheet"/>
   <title>Universidad Creativa | Correo</title>
 </head>
-<body style="visibility:hiddoen;">
+<body style="visibility:huidden;">
  
   <img alt="Google" src="global/logo.gif" border="0" height="59" width="143"/>
   <span class="t">
@@ -65,6 +65,10 @@
   <?php
     } }
     
+    $service="NO_SERVICE";
+    if(isset($_GET['service'])){
+      $service=$_GET['service'];
+    }
    session_name("UCREAUTH");
 	session_start();
 
@@ -101,7 +105,7 @@
   <table width="100%" height="100%">
     <tr>
       <td>
-        <iframe id="ifr_service_provider" name="service_provider" src="./service_provider.php"
+        <iframe id="ifr_service_provider" name="service_provider" src="./service_provider.php?service=<? echo $service?>"
           width="100%" height="100%" frameborder="1"></iframe>
       </td>
       <td>

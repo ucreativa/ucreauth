@@ -37,6 +37,19 @@
 			return $this->data_provide->sql_get_rows($result);
       } 
       
+      public function get_userdata_by_email($user_email){
+
+			$result=$this->data_provide->sql_execute("SELECT tbl_users.user_id,
+																	tbl_users.user_krb_name,
+																	tbl_users.user_email,
+																	tbl_users.user_status
+																	FROM tbl_users
+																	WHERE tbl_users.user_email = '" . $user_email . "'
+																	AND tbl_users.user_status = 'A'");
+			                      		                          
+			return $this->data_provide->sql_get_rows($result);
+      } 
+      
       public function get_user_status($user_krb_name){
 
 			$result=$this->data_provide->sql_execute("SELECT tbl_users.user_status
@@ -96,9 +109,11 @@
 																	user_lifetime = ".$userdata[11].",
 																	user_realname = '".$userdata[12]."',
 																	user_type = '".$userdata[13]."',
-,																	user_chpssw = '".$userdata[16]."'
+																	user_chpssw = '".$userdata[16]."',
 																	user_chprofile = '".$userdata[17]."'
 																	WHERE tbl_users.user_id = " . $id_user);
+																	
+
 			if($result){
 				$success=true;
 			}
@@ -117,7 +132,8 @@
 																	user_gen = '".$userdata[6]."',
 																	user_datebirth = '".$userdata[7]."',
 																	user_description = '".$userdata[10]."',
-																	user_realname = '".$userdata[12]."'
+																	user_realname = '".$userdata[12]."',
+																	user_chprofile = '0'
 																	WHERE tbl_users.user_id = " . $id_user);
 			if($result){
 				$success=true;
@@ -128,13 +144,13 @@
       }
       
       
-      public function update_chpssw($username){ 
+      public function update_chpssw($username,$val="0"){ 
 	      /*Ponemos el flag de cambio de contraseña a 0 
           para no volver a preguntar por cambio de password*/
        
 	      $success=false; 
 			$result=$this->data_provide->sql_execute("UPDATE tbl_users SET
-																	user_chpssw = '0'
+																	user_chpssw = '".$val."'
 																	WHERE tbl_users.user_krb_name = '" . $username . "'");
 			if($result){
 				$success=true;

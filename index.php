@@ -20,13 +20,14 @@
    <?
 
      // Restricción para versiones de Internet Explorer 8 o inferior
-     echo "<script type='text/javascript'>checkVersion();</script>"; 
+     echo "<script type='text/javascript'>checkVersion();</script>";
+     $init_site="http://www.ucreativa.com/ucreasite"; 
    ?>
    
   <div id="inactive_base"></div>
   <body id="main_page">
 
-		 <iframe id="mainframe" type="text/html" src="http://www.ucreativa.com/ucreasite" width="100%" height="97%"></iframe>  
+		 <iframe id="mainframe" type="text/html" src=<? echo $init_site;?> width="100%" height="97%"></iframe>  
 
    
   	<div id="cp_bar">
@@ -40,15 +41,15 @@
           //unset($_SESSION['AUTH']);
           if(isset($_SESSION['AUTH'])){
 		       if($_SESSION['AUTH']!="YES"){
-		       	include_once(__VWS_PATH . "/login.php"); 
+		       	include_once(__VWS_PATH . "/login.php");
 		       }else{
 		       	include_once(__VWS_PATH . "/access_cp.php");
 		       }
 		    }else{
-            include_once(__VWS_PATH . "/login.php");    
+            include_once(__VWS_PATH . "/login.php");     
 		    }
 
-		    echo "<script>$('#mainframe').attr('src','http://www.ucreativa.com/ucreasite')</script>";
+		    echo "<script>$('#mainframe').attr('src','".$init_site."')</script>";
 	    ?>
    </div>
   

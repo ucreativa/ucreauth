@@ -60,7 +60,7 @@ function checkVersion() {
         if (ver <= 8.0){
             msg = "Usted debe actualizar su navegador por razones críticas de seguridad."
             alert(msg);
-            location.href = "http://www.google.com/chrome?hl=es";
+            location.href = "http://www.mozilla.org/es-ES/firefox/new/";
         }
     }
 }
@@ -85,9 +85,9 @@ function validate_pssw() {
 	var minLength = 6; // Minimum length
 	var pw1 = $("#txt_pssw").val();
 	var pw2 = $("#txt_cpssw").val();
-	
+
 	if(/^\d{2,4}$/.test(pw1)) {
-	  alert("El password debe tener de 2 a 4 digitos.");
+	  alert("La contraseña debe tener de 2 a 4 digitos.");
 	  return false;
 	}
 
@@ -102,6 +102,7 @@ function validate_pssw() {
 		alert('Su contraseña debe ser de al menos ' + minLength + ' caracteres. Intenta de nuevo.');
 		return false;
 	}
+
 	// check for spaces
 	if (pw1.indexOf(invalid) > -1) {
 		alert("Espacios no son permitidos.");
@@ -182,7 +183,7 @@ function valChangeBK(txt){
      }
 }
 
-function maxLength(me,count,e){
+function max_Length(me,count,e){
     tecla = (document.all) ? e.keyCode : e.which; 
     if (tecla==8)
         return true; 
@@ -213,7 +214,8 @@ function validarOnlyLet(e) {
 
 function validarOnlyNum(e) { 
     tecla = (document.all) ? e.keyCode : e.which; 
-    if ((tecla==8) || (tecla==45)) return true;
+    if ((tecla==8)) return true;
+    if ((tecla==45)) return false;
     patron =/\d/; 
     te = String.fromCharCode(tecla); 
     return patron.test(te); 

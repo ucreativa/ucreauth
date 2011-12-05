@@ -183,7 +183,7 @@ function valChangeBK(txt){
      }
 }
 
-function maxLength(me,count,e){
+function max_Length(me,count,e){
     tecla = (document.all) ? e.keyCode : e.which; 
     if (tecla==8)
         return true; 
@@ -214,7 +214,8 @@ function validarOnlyLet(e) {
 
 function validarOnlyNum(e) { 
     tecla = (document.all) ? e.keyCode : e.which; 
-    if ((tecla==8) || (tecla==45)) return true;
+    if ((tecla==8)) return true; //tecla borrar
+    if ((tecla==45)) return false; //tecla -
     patron =/\d/; 
     te = String.fromCharCode(tecla); 
     return patron.test(te); 

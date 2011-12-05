@@ -38,14 +38,14 @@
 			    } 
 			} 
 	      
-	      //$userserviceinfo[2]=$_POST['txt_username'];
+	      $userserviceinfo[1]=$_POST['txt_username'];
 	      //$userserviceinfo[4]=$_POST['txt_rol'];
 
 	   	
 	   	/*Si vamos a insertar un registro nuevo (_NEW) o actualizar en caso de que
 	   	$_GET['id'] tenga un valor asignado desde el formulario de búsqueda*/   	
 	   	if($id_user!="_NEW"){
-		   	if(($this->userservicedata->insert_user_service($userserviceinfo,selected_services)==1)){   
+		   	if(($this->userservicedata->insert_user_service($userserviceinfo,$selected_services)==1)){   
 		      	cls_Message::show_message("","success","success_insert");
 		      }
 		   }

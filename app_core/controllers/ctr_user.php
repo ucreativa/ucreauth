@@ -26,8 +26,13 @@
 	   public function get_userdata($id_user)
 	   {
 			 return $this->userdata->get_userdata("",$id_user);
-	   } 
+	   }
 	   
+	   public function get_userdata_by_email($email)
+	   {
+			 return $this->userdata->get_userdata_by_email($email);
+	   }  
+	    
 	   public function get_userdata_by_name($name_user)
 	   {
 			 return $this->userdata->get_userdata($name_user,"-1");
@@ -36,8 +41,7 @@
    	  
    	//Si se presiona el botón Agregar Usuario 
 	   function btn_save_click() 
-	   {
-	   	         
+	   {      
 	      $userinfo=array();
 	      $id_user=$_POST['txt_id'];
 	      
@@ -61,8 +65,17 @@
 	      $userinfo[13]=$_POST['cmb_usertype'];
 	      $userinfo[14]=$_POST['txt_pssw'];
 	      $userinfo[15]=$_POST['txt_chpassw'];
-	      $userinfo[16]=$_POST['chk_newpssw'];
-	      $userinfo[17]=$_POST['chk_editprofile'];
+	      
+	      if(isset($_POST['chk_newpssw'])){
+	      	$userinfo[16]=$_POST['chk_newpssw'];
+	      }else{
+	      	$userinfo[16]=0;
+	      }
+	      if(isset($_POST['chk_editprofile'])){
+	      	$userinfo[17]=$_POST['chk_editprofile'];
+	      }else{
+	      	$userinfo[17]=0;
+	      }
 	   	
 	   	/*Si vamos a insertar un registro nuevo (_NEW) o actualizar en caso de que
 	   	$_GET['id'] tenga un valor asignado desde el formulario de búsqueda*/   	
@@ -72,9 +85,10 @@
 		      }
 		   }else{
 		   	if(($this->userdata->update_userdata($userinfo,$id_user))){
-		   		 //si la opcion de cambio de password está seleccionada se procede a el cambio
+		   		 //si la opción de cambio de password está seleccionada se procede a el cambio
 		   		 if($userinfo[15]=='KRB5_CHPSSW'){
-		   		 	$this->kadmin->krb5_edit_userpssw($userinfo[1],$userinfo[14]);
+		   		 	$usrcore=new ctr_User();
+		   		 	$usrcore->update_chpssw( $userinfo[1],$userinfo[14],$userinfo[3]);
 		   		 }
 		   		   
 		      	 cls_Message::show_message("","success","success_update");
@@ -108,21 +122,14 @@
 		   		
 		   		//variable que determina si se cambió el password o no
 		   		//para saber que mensaje mostrar al usuario 
-		   		$msg_chpssw=0;
 		   		
 		   		 if($userinfo[15]=='KRB5_CHPSSW'){
-		   		 	$this->kadmin->krb5_edit_userpssw($userinfo[1],$userinfo[14]);
-		   		 	
-		   		 	 //Enviamos el e-mail de cambio de password
-						 ctr_User::mail_chpasswd($userinfo[1],$userinfo[14],$userinfo[3]);	
-					    $msg_chpssw=1;
-		   		 }
-		   		 
-		   		 if($msg_chpssw==0){  
-		      	    cls_Message::show_message("","success","success_update");
-		      	 }else{
-		      	 	 cls_Message::show_message("Datos actualizados exitosamente.
-		      	 	 									 Su nueva contraseña ha sido enviada al correo asociado a su cuenta.","success","");
+		   		 	$usrcore=new ctr_User();
+		   		 	$usrcore->update_chpssw($userinfo[1],$userinfo[14],$userinfo[3]);
+					   cls_Message::show_message("Datos actualizados exitosamente.
+	 									 Su nueva contraseña ha sido enviada al correo asociado a su cuenta.","success","");
+		   		 }else{
+		      	 	cls_Message::show_message("","success","success_update");
 		      	 }
                 		   	
 		      }
@@ -134,11 +141,12 @@
           unset($_GET['edit']);
 	   }
 	   
-	   function update_chpssw($username,$password,$email) {
+	   function update_chpssw($username,$password,$email, $val = "0") {
 	   	$success=false;
-			if($this->kadmin->krb5_edit_userpssw($username,$password)==true 
-			   && $this->userdata->update_chpssw($username)==true){
+			if($this->kadmin->krb5_edit_userpssw(trim($username),$password)==true 
+			   && $this->userdata->update_chpssw($username, $val)==true){
 			     $success=true;
+			     //Enviamos el e-mail de cambio de password
 			     ctr_User::mail_chpasswd($username,$password,$email);	
 			}
 			return $success;

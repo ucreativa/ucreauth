@@ -97,6 +97,13 @@ ARCHIVO DE CONFIGURACIÓN GLOBAL.
     	$len = strpos($string,$end,$ini) - $ini;
     	return substr($string,$ini,$len);
   }
+  
+  function password_shuffle($lenght){
+		$str = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz1234567890";
+		$cad = str_shuffle($str);
+		$cad= substr($cad,0,$lenght);
+		return $cad;
+  }
 
   //listado de parámetros globales
   $array_global_settings=array();
